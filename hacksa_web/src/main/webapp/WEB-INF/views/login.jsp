@@ -8,13 +8,13 @@
 <title>Login</title>
 </head>
 <body>
-<!--<form:form method="POST" action="" >
+<form:form method="POST" action="" >
 <table id="login_table">
 	<tr>
 		<td><form:label path="id">ID</form:label></td>
 		<td><form:input path="id"/></td>
 	</tr>
 </table>
-</form:form>-->
+</form:form>
 </body>
 </html>
