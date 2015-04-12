@@ -10,7 +10,7 @@
 <body>
 <div align="center">
 	<h2>로그인 화면</h2>
-	<form:form modelAttribute="CMember" method="POST" action="login.html" >
+	<form:form modelAttribute="CMember" method="POST" action="login" >
 		<spring:hasBindErrors name="CMember">
 			<font color="red"><c:forEach items="${errors.globalErrors}" var="error">
 			<spring:message code="${error.code}"/>

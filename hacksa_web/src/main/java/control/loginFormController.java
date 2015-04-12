@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import model.CMember;
 import model.Hacksa;
+import utils.loginValidator;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -37,17 +38,11 @@ public class loginFormController {
 	public CMember setUpForm(){
 		return new CMember();
 	}
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
-		
-		model.addAttribute("CMember", new CMember());
-		return "login";
-	}
 	
 	@RequestMapping (method = RequestMethod.POST)
 	public ModelAndView onSubmit(CMember member, BindingResult bindingResult){
 		
-		this.loginValidator.validate(member, bindingResult);
+		//this.loginValidator.validate(member, bindingResult);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		if(bindingResult.hasErrors()){
