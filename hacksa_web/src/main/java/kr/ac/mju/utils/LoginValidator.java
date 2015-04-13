@@ -1,11 +1,12 @@
-package utils;
+package kr.ac.mju.utils;
 
-import model.CMember;
+import kr.ac.mju.model.CMember;
+
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class loginValidator implements Validator {
+public class LoginValidator implements Validator {
 	public boolean supports(Class<?> clazz) {
 		return CMember.class.isAssignableFrom(clazz);
 	}

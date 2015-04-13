@@ -1,6 +1,6 @@
-package model;
+package kr.ac.mju.model;
 
-import DAO.MemberDAO;
+import kr.ac.mju.DAO.MemberDAO;
 
 public class CMemberCatalogImpl implements CMemberCatalog {
 

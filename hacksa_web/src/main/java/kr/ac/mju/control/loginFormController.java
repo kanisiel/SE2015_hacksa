@@ -1,10 +1,11 @@
-package control;
+package kr.ac.mju.control;
 
 import java.util.Locale;
 
-import model.CMember;
-import model.Hacksa;
+import kr.ac.mju.model.CMember;
+import kr.ac.mju.model.Hacksa;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ public class loginFormController {
 	private Hacksa hacksa;
 	private Validator loginValidator;
 	
+	@Autowired
 	public void setHacksa(Hacksa hacksa) {
 		this.hacksa = hacksa;
 	}
-
+	
+	@Autowired
 	public void setLoginValidator(Validator loginValidator) {
 		this.loginValidator = loginValidator;
 	}

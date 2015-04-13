@@ -19,9 +19,8 @@
   		http://www.springframework.org/schema/util
   		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 		
-	<!-- Data Source -->
+	<!-- Data Source
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<!-- JDBC 드라이버 설정 -->
 		<beans:property name="driverClassName">
 			<beans:value>com.mysql.jdbc.Driver</beans:value>
 		</beans:property>
@@ -31,31 +30,31 @@
 		<beans:property name="password">
 			<beans:value>selab</beans:value>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
-	<!-- hacksa -->
-	<beans:bean id="hacksa" class="model.hacksaImpl">
-		<beans:property name="CMember">
-			<beans:ref bean="CMember"/>
+	<!-- hacksa
+	<beans:bean id="hacksa" class="model.HacksaImpl">
+		<beans:property name="memberCatalog">
+			<beans:ref bean="memberCatalog"/>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
-	<!-- CMember -->
-	<beans:bean id="CMember" class="model.CMember">
-		<beans:property name="MemberDAO">
-			<beans:ref bean="MemberDAO"/>
+	<!-- CMember
+	<beans:bean id="memberCatalog" class="model.CMemberCatalogImpl">
+		<beans:property name="memberDAO">
+			<beans:ref bean="memberDAO"/>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
-	<!-- MemberDAO -->
-	<beans:bean id="MemberDAO" class="DAO.MemberDAO">
+	<!-- MemberDAO
+	<beans:bean id="memberDAO" class="DAO.MemberDAO">
 		<beans:property name="dataSource">
 			<beans:ref bean="dataSource"/>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
-	<!-- Validator -->
-	<beans:bean id="loginValidator" class="utils.LoginValidator"/>
+	<!-- Validator
+	<beans:bean id="loginValidator" class="utils.LoginValidator"/> -->
 	
 	<!-- MessageSource
 	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

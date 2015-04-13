@@ -1,4 +1,4 @@
-package model;
+package kr.ac.mju.model;
 
 interface CEntity {
 	

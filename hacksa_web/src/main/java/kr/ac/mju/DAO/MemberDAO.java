@@ -1,8 +1,8 @@
-package DAO;
-
-import model.CMember;
+package kr.ac.mju.DAO;
 
 import javax.sql.DataSource;
+
+import kr.ac.mju.model.CMember;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
