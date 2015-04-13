@@ -27,6 +27,8 @@ public class UserDao implements Dao {
 						userInfo.setUserId(userData[0]);
 						userInfo.setUserPassword(userData[1]);
 						userInfo.setName(userData[2]);
+						scanner.close();
+						return userInfo;
 					} else {
 						userInfo.setErrorCode("ER:1002");
 					}

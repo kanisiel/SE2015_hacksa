@@ -8,9 +8,10 @@
 <title>수강신청</title>
 </head>
 <body>
-
+<div align="center">
 <h1>수강신청 화면</h1>
 
-${userID }
+<h2>${userInfo.getName()}씨, 반갑습니다.</h2>
+</div>
 </body>
 </html>
