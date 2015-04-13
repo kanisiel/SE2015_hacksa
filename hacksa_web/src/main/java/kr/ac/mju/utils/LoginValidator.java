@@ -1,6 +1,6 @@
 package kr.ac.mju.utils;
 
-import kr.ac.mju.model.CMember;
+import model.CMember;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

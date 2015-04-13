@@ -1,6 +1,6 @@
-package kr.ac.mju.model;
+package model;
 
-import kr.ac.mju.model.CMemberCatalog;
+import model.CMemberCatalog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

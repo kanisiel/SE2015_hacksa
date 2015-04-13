@@ -1,15 +1,16 @@
-package kr.ac.mju.DAO;
+package DAO;
 
 import javax.sql.DataSource;
 
-import kr.ac.mju.model.CMember;
+import kr.ac.mju.Dao.Dao;
+import model.CMember;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 @SuppressWarnings("deprecation")
-public class MemberDAO implements DAO {
+public class MemberDAO implements Dao {
 	
 	private SimpleJdbcTemplate template;
 	private static final String SelectQuery = "Select user_id, password From user_account Where user_id = ? And password = ?";

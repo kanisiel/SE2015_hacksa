@@ -1,11 +1,18 @@
-package kr.ac.mju;
+package kr.ac.mju.control;
 
 import java.io.UnsupportedEncodingException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import kr.ac.mju.model.LoginInfo;
+import kr.ac.mju.model.User;
+import kr.ac.mju.model.UserInfo;
+import kr.ac.mju.service.LoginService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	@Autowired
+	LoginService loginService;
+	
+	@Resource(name="loginInfo")
+	LoginInfo loginInfo;
 	
 	@RequestMapping(value = "/loginController/login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -21,12 +33,19 @@ public class LoginController {
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
 		
-		logger.info("로그인 요청 :" + userID);
-		if(userID == "" || userPassword == ""){			
-			return "redirect:/";
-		} else {
-			request.getSession().setAttribute("userID", userID);
+		loginInfo.setUserId(userID);
+		loginInfo.setUserPassword(userPassword);
+		
+		UserInfo userInfo = this.loginService.login(loginInfo);
+		
+		
+		logger.info("에러코드 :" + userInfo.getErrorCode());
+		if(userInfo.getErrorCode().equals("Success")){
+			request.getSession().setAttribute("userInfo", userInfo);
 			return "sugang";
+		} else {
+			request.getSession().setAttribute("userInfo", userInfo);
+			return "redirect:/";
 		}
 	}
 }

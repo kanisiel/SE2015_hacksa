@@ -19,10 +19,12 @@
 			<tr height="40px">
 				<td>유저 아이디</td>
 				<td><input type="text" name="userID"></td>
+				<td>${userInfo.getErrorCode()}</td>
 			</tr>
 			<tr height="40px">
 				<td>패스워드</td>
 				<td><input type="password" name="userPassword"></td>
+				<td>${userInfo.getErrorCode()}</td>
 			</tr>
 		</table>
 		<table>

@@ -1,4 +1,4 @@
-package kr.ac.mju;
+package kr.ac.mju.control;
 
 import java.text.DateFormat;
 import java.util.Date;

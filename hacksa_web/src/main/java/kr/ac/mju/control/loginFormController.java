@@ -2,8 +2,8 @@ package kr.ac.mju.control;
 
 import java.util.Locale;
 
-import kr.ac.mju.model.CMember;
-import kr.ac.mju.model.Hacksa;
+import model.CMember;
+import model.Hacksa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+
 public class loginFormController {
 	private Hacksa hacksa;
 	private Validator loginValidator;
