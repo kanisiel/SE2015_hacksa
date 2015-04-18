@@ -9,10 +9,11 @@
 </head>
 <body>
 <div align="center">
-<h1>수강신청 화면</h1>
+<h1>학사관리 시스템</h1>
 
 <h2>${userInfo.getName()}씨, 반갑습니다.</h2>
-
+<c:if test="${userInfo.getUserType()==1 }">수강신청</c:if>
+<c:if test="${userInfo.getUserType()==2 }">강좌개설</c:if>
 <a href=${pageContext.request.contextPath}/loginController/logout>로그아웃</a>
 </div>
 </body>

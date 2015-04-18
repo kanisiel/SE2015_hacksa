@@ -1,6 +1,5 @@
 package kr.ac.mju.control;
 
-import kr.ac.mju.Conf.*;
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 
 import java.io.UnsupportedEncodingException;
@@ -9,7 +8,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.model.LoginInfo;
-import kr.ac.mju.model.User;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.LoginService;
 

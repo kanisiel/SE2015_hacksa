@@ -1,6 +1,8 @@
 package kr.ac.mju.model;
 
 public class User implements CEntity {
+
+	private static final long serialVersionUID = 1L;
 	private String userId;
 	private String userPassword;
 	private String Name;

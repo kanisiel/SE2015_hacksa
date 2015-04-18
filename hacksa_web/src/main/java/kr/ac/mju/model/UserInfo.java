@@ -1,7 +1,5 @@
 package kr.ac.mju.model;
 
-import kr.ac.mju.Conf.*;
-import kr.ac.mju.Conf.Configuration.ErrorCodes;
 public class UserInfo implements Info {
 	
 	private String errorCode;
