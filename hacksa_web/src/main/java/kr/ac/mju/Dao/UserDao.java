@@ -27,13 +27,16 @@ public class UserDao implements Dao {
 						userInfo.setUserId(userData[0]);
 						userInfo.setUserPassword(userData[1]);
 						userInfo.setName(userData[2]);
+						userInfo.setUserType(Integer.parseInt(userData[3]));
 						scanner.close();
 						return userInfo;
 					} else {
-						userInfo.setErrorCode("ER:1002");
+						userInfo.setErrorCode("ER1002");
+					 	scanner.close();
+						return userInfo;
 					}
 				} else {
-					userInfo.setErrorCode("ER:1001");
+					userInfo.setErrorCode("ER1001");
 				}
 				
 			}
@@ -41,7 +44,7 @@ public class UserDao implements Dao {
 			return userInfo;
 		} catch (IOException e) {
 			e.printStackTrace();
-			userInfo.setErrorCode("ER:1000");
+			userInfo.setErrorCode("ER1000");
 			return userInfo;
 		}
 	}

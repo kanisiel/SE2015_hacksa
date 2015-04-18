@@ -12,6 +12,8 @@
 <h1>수강신청 화면</h1>
 
 <h2>${userInfo.getName()}씨, 반갑습니다.</h2>
+
+<a href=${pageContext.request.contextPath}/loginController/logout>로그아웃</a>
 </div>
 </body>
 </html>

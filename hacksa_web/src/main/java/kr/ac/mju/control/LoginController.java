@@ -1,5 +1,8 @@
 package kr.ac.mju.control;
 
+import kr.ac.mju.Conf.*;
+import kr.ac.mju.Conf.Configuration.ErrorCodes;
+
 import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
@@ -16,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("Info")
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
@@ -27,8 +34,10 @@ public class LoginController {
 	@Resource(name="loginInfo")
 	LoginInfo loginInfo;
 	
+	ModelAndView modelAndView = new ModelAndView();
+	
 	@RequestMapping(value = "/loginController/login.do", method = RequestMethod.POST)
-	public String login(HttpServletRequest request) throws UnsupportedEncodingException {
+	public ModelAndView login(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
@@ -42,10 +51,19 @@ public class LoginController {
 		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
 			request.getSession().setAttribute("userInfo", userInfo);
-			return "sugang";
+			modelAndView.setViewName("sugang");
+			redir.addFlashAttribute("Info", userInfo);
+			return modelAndView;
 		} else {
+			ErrorCodes errorCodes = ErrorCodes.valueOf(userInfo.getErrorCode());
 			request.getSession().setAttribute("userInfo", userInfo);
-			return "redirect:/";
+			modelAndView.setViewName("redirect:/");
+			redir.addFlashAttribute("Info", errorCodes);
+			return modelAndView;
 		}
+	}
+	@RequestMapping(value = "/loginController/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) throws UnsupportedEncodingException {
+		return "redirect:/";
 	}
 }

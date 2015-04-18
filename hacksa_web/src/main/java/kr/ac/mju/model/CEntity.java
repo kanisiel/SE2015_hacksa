@@ -1,5 +1,7 @@
 package kr.ac.mju.model;
 
-interface CEntity {
+import java.io.Serializable;
+
+interface CEntity extends Serializable {
 	
 }

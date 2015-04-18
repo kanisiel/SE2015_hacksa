@@ -1,6 +1,6 @@
 package kr.ac.mju.model;
 
-public class User {
+public class User implements CEntity {
 	private String userId;
 	private String userPassword;
 	private String Name;

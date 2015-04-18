@@ -1,11 +1,15 @@
 package kr.ac.mju.model;
 
+import kr.ac.mju.Conf.*;
+import kr.ac.mju.Conf.Configuration.ErrorCodes;
 public class UserInfo implements Info {
 	
 	private String errorCode;
 	private String userId;
 	private String userPassword;
 	private String name;
+	private int userType;
+	
 	
 	public String getErrorCode() {
 		return errorCode;
@@ -31,5 +35,11 @@ public class UserInfo implements Info {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public int getUserType() {
+		return userType;
+	}
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+		
 }
