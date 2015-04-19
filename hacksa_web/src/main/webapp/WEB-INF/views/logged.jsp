@@ -13,8 +13,10 @@
 
 <h2>${userInfo.getName()}씨, 반갑습니다.</h2>
 <c:if test="${userInfo.getUserType()==1 }">수강신청</c:if>
-<c:if test="${userInfo.getUserType()==2 }">강좌개설</c:if>
-<a href=${pageContext.request.contextPath}/loginController/logout>로그아웃</a>
+<c:if test="${userInfo.getUserType()==2 }">
+	<a href="${pageContext.request.contextPath}/sugangController/gwamokList">강좌개설</a>
+</c:if>
+<a href="${pageContext.request.contextPath}/loginController/logout">로그아웃</a>
 </div>
 </body>
 </html>

@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@SessionAttributes("Info")
+@SessionAttributes("userInfo")
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
@@ -31,6 +31,7 @@ public class LoginController {
 	
 	@Resource(name="loginInfo")
 	LoginInfo loginInfo;
+	
 	
 	ModelAndView modelAndView = new ModelAndView();
 	
@@ -49,19 +50,19 @@ public class LoginController {
 		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
 			request.getSession().setAttribute("userInfo", userInfo);
-			modelAndView.setViewName("sugang");
-			redir.addFlashAttribute("Info", userInfo);
+			modelAndView.setViewName("logged");
+			//redir.addFlashAttribute("userInfo", userInfo);
 			return modelAndView;
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(userInfo.getErrorCode());
-			request.getSession().setAttribute("userInfo", userInfo);
 			modelAndView.setViewName("redirect:/");
-			redir.addFlashAttribute("Info", errorCodes);
+			redir.addFlashAttribute("userInfo", errorCodes);
 			return modelAndView;
 		}
 	}
 	@RequestMapping(value = "/loginController/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) throws UnsupportedEncodingException {
+		request.getSession().setAttribute("userInfo", null);
 		return "redirect:/";
 	}
 }

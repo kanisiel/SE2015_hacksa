@@ -18,7 +18,20 @@
   		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
   		http://www.springframework.org/schema/util
   		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
-		
+	
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> <!-- 오라클 세팅   -->
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+		<beans:property name="username" value="scott" />
+		<beans:property name="password" value="tiger" />
+	</beans:bean> 
+	<!-- <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="mapperLocations" value="classpath*:Query.xml"/> //쿼리 정보 파일 경로
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>        
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean> -->
 	<!-- Data Source
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName">

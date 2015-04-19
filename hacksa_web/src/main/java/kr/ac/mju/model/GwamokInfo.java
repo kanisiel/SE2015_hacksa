@@ -7,7 +7,10 @@ public class GwamokInfo implements Info {
 	private Vector<Gwamok> list;
 	private String errorCode;
 	
-	
+	public GwamokInfo() {
+		this.list = new Vector<Gwamok>();
+		errorCode = null;
+	}
 	public void addGwamok(Gwamok gwamok){
 		this.list.add(gwamok);
 	}

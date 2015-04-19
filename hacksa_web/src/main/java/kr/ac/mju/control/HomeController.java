@@ -39,13 +39,13 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/sugang", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/sugang", method = RequestMethod.GET)
 	public String sugang(Locale locale, Model model) {
 		//logger.info("Welcome home! The client locale is {}.", locale);
 		
 		
 		return "sugang";
-	}
+	}*/
 	
 	
 }

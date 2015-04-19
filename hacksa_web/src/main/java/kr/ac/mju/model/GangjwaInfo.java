@@ -6,6 +6,10 @@ public class GangjwaInfo implements Info {
 	private Vector<Gangjwa> list;
 	private String errorCode;
 	
+	public GangjwaInfo() {
+		this.list = new Vector<Gangjwa>();
+		errorCode = null;
+	}
 	public void setList(Vector<Gangjwa> list) {
 		this.list = list;
 	}
