@@ -2,14 +2,27 @@ package kr.ac.mju.Dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
 
 @Repository
 public class UserDao implements Dao {
 
+	//@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	public UserInfo login_DB(LoginInfo loginInfo){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user", loginInfo);
+		return sqlSession.selectOne("Query.xml", map);
+	}
 	public UserInfo login(LoginInfo loginInfo){
 		
 		String[] userData;

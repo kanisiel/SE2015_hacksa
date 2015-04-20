@@ -53,6 +53,26 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 			return modelAndView;
 		}
 	}
+	@RequestMapping(value = "/sugangController/gangjwaList", method = RequestMethod.GET)
+	public ModelAndView gangjwaList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+
+		request.setCharacterEncoding("UTF-8");
+		GangjwaInfo gangjwaInfo = sugangService.getGangjwas();
+		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
+
+		logger.info("에러코드 :" + gangjwaInfo.getErrorCode());
+		if(gangjwaInfo.getErrorCode().equals("Success")){
+			request.getSession().setAttribute("gangjwaInfo", gangjwaInfo);
+			modelAndView.setViewName("gangjwa");
+			redir.addFlashAttribute("Info", gangjwaInfo);
+			return modelAndView;
+		} else {
+			ErrorCodes errorCodes = ErrorCodes.valueOf(gangjwaInfo.getErrorCode());
+			request.getSession().setAttribute("gangjwaInfo", errorCodes);
+			modelAndView.setViewName("sugang");
+			return modelAndView;
+		}
+	}
 	/*@RequestMapping(value = "/sugangController/gaeseol", method = RequestMethod.POST)
 	public ModelAndView gaeseol(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");

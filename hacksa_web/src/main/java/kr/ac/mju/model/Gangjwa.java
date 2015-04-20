@@ -3,17 +3,23 @@ package kr.ac.mju.model;
 public class Gangjwa implements CEntity {
 
 	private static final long serialVersionUID = 1L;
-	private int gangjwa_id;
+	private String gwamok_id;
+	private String gangjwa_id;
 	private String name;
-	private int hackjeom;
-	private int gwamok_id;
 	private String instructor;
+	private int hackjeom;
 	
-	
-	public int getGangjwa_id() {
+
+	public String getGwamok_id() {
+		return gwamok_id;
+	}
+	public void setGwamok_id(String gwamok_id) {
+		this.gwamok_id = gwamok_id;
+	}
+	public String getGangjwa_id() {
 		return gangjwa_id;
 	}
-	public void setGangjwa_id(int gangjwa_id) {
+	public void setGangjwa_id(String gangjwa_id) {
 		this.gangjwa_id = gangjwa_id;
 	}
 	public String getName() {
@@ -27,12 +33,6 @@ public class Gangjwa implements CEntity {
 	}
 	public void setHackjeom(int hackjeom) {
 		this.hackjeom = hackjeom;
-	}
-	public int getGwamok_id() {
-		return gwamok_id;
-	}
-	public void setGwamok_id(int gwamok_id) {
-		this.gwamok_id = gwamok_id;
 	}
 	public String getInstructor() {
 		return instructor;

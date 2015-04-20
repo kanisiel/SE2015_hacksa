@@ -12,7 +12,9 @@
 <h1>학사관리 시스템</h1>
 
 <h2>${userInfo.getName()}씨, 반갑습니다.</h2>
-<c:if test="${userInfo.getUserType()==1 }">수강신청</c:if>
+<c:if test="${userInfo.getUserType()==1 }">
+	<a href="${pageContext.request.contextPath}/sugangController/gangjwaList">수강신청</a>
+</c:if>
 <c:if test="${userInfo.getUserType()==2 }">
 	<a href="${pageContext.request.contextPath}/sugangController/gwamokList">강좌개설</a>
 </c:if>

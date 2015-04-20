@@ -43,7 +43,8 @@ public class LoginController {
 		
 		loginInfo.setUserId(userID);
 		loginInfo.setUserPassword(userPassword);
-		
+		logger.info("ID :" + userID);
+		logger.info("Password :" + userPassword);
 		UserInfo userInfo = this.loginService.login(loginInfo);
 		
 		

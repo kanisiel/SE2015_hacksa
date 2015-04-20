@@ -3,10 +3,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Query">
+    <resultMap type="kr.mju.ac.modal.UserInfo" id="userResult">
+       <result property="userId" column="USERID"/> 
+       <result property="userPassword" column="USERPASSWORD"/>
+       <result property="name" column="USER_NAME"/>
+       <result property="userType" column="USER_TYPE"/>
+    </resultMap>
 
-    <select id="listAll" resultType="aa.bb.cc.DTO">
+    <select id="login" resultMap="userResult">
 
-        select * from emp
+        select
+        	* 
+        from 
+        	USERS 
+        Where
+        	USERID = #{user.userId} 
+        AND
+        	USERPASSWORD = #{user.userPassword}
 
     </select>
 

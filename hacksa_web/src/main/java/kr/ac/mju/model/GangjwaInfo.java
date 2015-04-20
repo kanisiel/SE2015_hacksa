@@ -3,21 +3,13 @@ package kr.ac.mju.model;
 import java.util.Vector;
 
 public class GangjwaInfo implements Info {
+	
 	private Vector<Gangjwa> list;
 	private String errorCode;
 	
 	public GangjwaInfo() {
 		this.list = new Vector<Gangjwa>();
 		errorCode = null;
-	}
-	public void setList(Vector<Gangjwa> list) {
-		this.list = list;
-	}
-	public String getErrorCode() {
-		return errorCode;
-	}
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
 	}
 	public void addGangjwa(Gangjwa gangjwa){
 		this.list.add(gangjwa);
@@ -27,5 +19,11 @@ public class GangjwaInfo implements Info {
 	}
 	public Vector<Gangjwa> getList(){
 		return this.list;
+	}
+	public String getErrorCode() {
+		return errorCode;
+	}
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 }

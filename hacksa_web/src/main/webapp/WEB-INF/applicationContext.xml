@@ -21,60 +21,15 @@
 	
     <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> <!-- 오라클 세팅   -->
-		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
-		<beans:property name="username" value="scott" />
-		<beans:property name="password" value="tiger" />
+		<beans:property name="url" value="jdbc:oracle:thin:@10.211.5.3:1521:xe" />
+		<beans:property name="username" value="hacksa" />
+		<beans:property name="password" value="selab" />
 	</beans:bean> 
-	<!-- <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="mapperLocations" value="classpath*:Query.xml"/> //쿼리 정보 파일 경로
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="mapperLocations" value="classpath*:Query.xml"/> <!--//쿼리 정보 파일 경로 -->
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>        
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
-	</beans:bean> -->
-	<!-- Data Source
-	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName">
-			<beans:value>com.mysql.jdbc.Driver</beans:value>
-		</beans:property>
-		<beans:property name="username">
-			<beans:value>spring</beans:value>
-		</beans:property>
-		<beans:property name="password">
-			<beans:value>selab</beans:value>
-		</beans:property>
-	</beans:bean> -->
-	
-	<!-- hacksa
-	<beans:bean id="hacksa" class="model.HacksaImpl">
-		<beans:property name="memberCatalog">
-			<beans:ref bean="memberCatalog"/>
-		</beans:property>
-	</beans:bean> -->
-	
-	<!-- CMember
-	<beans:bean id="memberCatalog" class="model.CMemberCatalogImpl">
-		<beans:property name="memberDAO">
-			<beans:ref bean="memberDAO"/>
-		</beans:property>
-	</beans:bean> -->
-	
-	<!-- MemberDAO
-	<beans:bean id="memberDAO" class="DAO.MemberDAO">
-		<beans:property name="dataSource">
-			<beans:ref bean="dataSource"/>
-		</beans:property>
-	</beans:bean> -->
-	
-	<!-- Validator
-	<beans:bean id="loginValidator" class="utils.LoginValidator"/> -->
-	
-	<!-- MessageSource
-	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<beans:property name="basenames">
-			<beans:list>
-				<beans:value>messages</beans:value>
-			</beans:list>
-		</beans:property>
-	</beans:bean>	 -->
+	</beans:bean>
 </beans:beans>

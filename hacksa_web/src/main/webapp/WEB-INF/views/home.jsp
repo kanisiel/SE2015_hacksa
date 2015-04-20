@@ -8,11 +8,9 @@
 </head>
 <body>
 <div align="center">
-<h1>
-	Hello world!  
-</h1>
+<h1>학사관리 시스템</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  현재시간은 ${serverTime} 입니다. </P>
 
 	<form action="loginController/login.do" method="post">
 		<table>

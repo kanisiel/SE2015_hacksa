@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Vector;
 
 import kr.ac.mju.Conf.Configuration.Files;
 import kr.ac.mju.model.Gangjwa;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class GangjwaDao implements Dao {
 	
-	private GangjwaInfo gangjwaInfo;
+	private GangjwaInfo gangjwaInfo = new GangjwaInfo();
 
 	public GangjwaInfo getList(){
 		String[] gangjwaData;
@@ -27,14 +28,19 @@ public class GangjwaDao implements Dao {
 				Gangjwa gangjwa = new Gangjwa();
 				String line = scanner.nextLine();
 				gangjwaData = line.split("\t");
-				gangjwa.setGwamok_id(Integer.parseInt(gangjwaData[0]));
-				gangjwa.setGangjwa_id(Integer.parseInt(gangjwaData[1]));
+				
+				gangjwa.setGwamok_id(gangjwaData[0]);
+				gangjwa.setGangjwa_id(gangjwaData[1]);
 				gangjwa.setName(gangjwaData[2]);
 				gangjwa.setInstructor(gangjwaData[3]);
 				gangjwa.setHackjeom(Integer.parseInt(gangjwaData[4]));
 				
-				this.gangjwaInfo.addGangjwa(gangjwa);
+				if(check_duplication(gangjwa) == 1){
+					this.gangjwaInfo.addGangjwa(gangjwa);
+				}
+				
 			}
+			this.gangjwaInfo.setErrorCode("Success");
 		 	scanner.close();
 			return gangjwaInfo;
 		} catch (IOException e) {
@@ -42,6 +48,19 @@ public class GangjwaDao implements Dao {
 			gangjwaInfo.setErrorCode("ER1000");
 			return gangjwaInfo;
 		}
+	}
+	public int check_duplication(Gangjwa gangjwa){
+		Vector<Gangjwa> list = this.gangjwaInfo.getList();
+		if(list.isEmpty()){
+			return 1;
+		} else {
+			for(Gangjwa gangjwas : list){
+				if(gangjwas.getGwamok_id().equals(gangjwa.getGwamok_id())){				
+					return -1;
+				}
+			}
+		}
+		return 1;
 	}
 	public void writeToDB(BufferedWriter file, String data){
 		try {
