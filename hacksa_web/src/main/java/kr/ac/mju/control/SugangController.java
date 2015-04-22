@@ -2,15 +2,11 @@ package kr.ac.mju.control;
 
 import java.io.UnsupportedEncodingException;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
-import kr.ac.mju.model.Gangjwa;
 import kr.ac.mju.model.GangjwaInfo;
-import kr.ac.mju.model.Gwamok;
 import kr.ac.mju.model.GwamokInfo;
-import kr.ac.mju.service.LoginService;
 import kr.ac.mju.service.SugangService;
 
 import org.slf4j.Logger;

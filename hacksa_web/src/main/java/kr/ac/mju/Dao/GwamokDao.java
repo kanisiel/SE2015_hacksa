@@ -18,7 +18,7 @@ public class GwamokDao implements Dao {
 	public GwamokInfo getList(){
 		String[] gwamokData;
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(Files.Gangjwa.getFileName()).getFile());
+		File file = new File(classLoader.getResource(Files.Gwamok.getFileName()).getFile());
 		
 		try (Scanner scanner = new Scanner(file)){
 			while (scanner.hasNextLine()) {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="UserMap">
+    
+    <cacheModel id="userCache" type="LRU">
+        <flushInterval hours="24"/>
+        <property name="size" value="1000" />
+    </cacheModel>
+    
+    <typeAlias alias="user" type="kr.ac.mju.model.User"/>
+    
+    <parameterMap  id="userParam" class="LoginInfo">
+        <parameter property="userId"/>
+        <parameter property="userPassword"/>
+    </parameterMap>
+    
+    <resultMap id="userResult" class="user">
+        <result property="u_ID" column="U_ID"/>
+        <result property="userId" column="USERID"/>
+        <result property="userPassword" column="USERPASSWORD"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userType" column="USER_TYPE"/>
+    </resultMap>
+    
+    <select id="getUser" parameterClass="kr.ac.mju.model.LoginInfo" 
+                                    resultMap="userResult" cacheModel="userCache">
+    <![CDATA[ 
+    
+    SELECT * FROM USER WHERE USERID = #userId# AND USERPASSWORD = #userPassword#
+            
+    ]]>
+    </select>
+    
+</sqlMap>

@@ -37,6 +37,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/loginController/login.do", method = RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+		this.modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
@@ -51,19 +52,19 @@ public class LoginController {
 		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
 			request.getSession().setAttribute("userInfo", userInfo);
-			modelAndView.setViewName("logged");
+			this.modelAndView.setViewName("logged");
 			//redir.addFlashAttribute("userInfo", userInfo);
-			return modelAndView;
+			return this.modelAndView;
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(userInfo.getErrorCode());
-			modelAndView.setViewName("redirect:/");
+			this.modelAndView.setViewName("redirect:/");
 			redir.addFlashAttribute("userInfo", errorCodes);
-			return modelAndView;
+			return this.modelAndView;
 		}
 	}
 	@RequestMapping(value = "/loginController/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request) throws UnsupportedEncodingException {
-		request.getSession().setAttribute("userInfo", null);
+	public String logout() throws UnsupportedEncodingException {
 		return "redirect:/";
 	}
+	
 }

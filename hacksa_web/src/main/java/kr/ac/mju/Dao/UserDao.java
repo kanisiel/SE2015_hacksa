@@ -15,15 +15,15 @@ import kr.ac.mju.model.UserInfo;
 @Repository
 public class UserDao implements Dao {
 
-	//@Autowired
+	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public UserInfo login_DB(LoginInfo loginInfo){
+	public UserInfo login(LoginInfo loginInfo){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("user", loginInfo);
-		return sqlSession.selectOne("Query.xml", map);
+		return sqlSession.selectOne("UserMap.getUser", map);
 	}
-	public UserInfo login(LoginInfo loginInfo){
+	public UserInfo login_file(LoginInfo loginInfo){
 		
 		String[] userData;
 		ClassLoader classLoader = getClass().getClassLoader();

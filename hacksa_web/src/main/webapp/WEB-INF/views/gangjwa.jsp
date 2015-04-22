@@ -43,6 +43,9 @@
 <table>
 	<tr>
 		<td>
+		<a href=${pageContext.request.contextPath}/logged>뒤로</a>
+		</td>
+		<td>
 		<a href=${pageContext.request.contextPath}/loginController/logout>로그아웃</a>
 		</td>
 	</tr>
