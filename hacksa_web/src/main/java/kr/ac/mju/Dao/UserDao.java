@@ -2,6 +2,7 @@ package kr.ac.mju.Dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.mju.mapper.UserMapper;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
 
@@ -19,9 +21,10 @@ public class UserDao implements Dao {
 	private SqlSessionTemplate sqlSession;
 	
 	public UserInfo login(LoginInfo loginInfo){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("user", loginInfo);
-		return sqlSession.selectOne("UserMap.getUser", map);
+ 
+		UserMapper userMapper = (UserMapper) sqlSession.getMapper(UserMapper.class);  
+		return userMapper.getData(loginInfo);  
+		//return sqlSession.selectOne("LoginQuery.getData", loginInfo);
 	}
 	public UserInfo login_file(LoginInfo loginInfo){
 		

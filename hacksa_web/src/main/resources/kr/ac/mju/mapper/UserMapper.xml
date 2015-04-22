@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+         PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="kr.ac.mju.mapper.UserMapper">
+    
+    <select id="getData" parameterType="kr.ac.mju.model.LoginInfo" resultType="kr.ac.mju.model.UserInfo">
+    
+    SELECT * FROM USER WHERE USERID = #{userId} AND USERPASSWORD = #{userPassword}
+            
+    </select>
+    
+</mapper>
