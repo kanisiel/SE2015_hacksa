@@ -2,14 +2,13 @@ package kr.ac.mju.Dao;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.mju.Conf.*;
 import kr.ac.mju.mapper.UserMapper;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
@@ -21,10 +20,25 @@ public class UserDao implements Dao {
 	private SqlSessionTemplate sqlSession;
 	
 	public UserInfo login(LoginInfo loginInfo){
- 
-		UserMapper userMapper = (UserMapper) sqlSession.getMapper(UserMapper.class);  
-		return userMapper.getData(loginInfo);  
-		//return sqlSession.selectOne("LoginQuery.getData", loginInfo);
+		UserInfo userInfo;
+		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+		if(userMapper!=null){
+			System.out.println(loginInfo.getUserId()+" / "+loginInfo.getUserPassword());
+			userInfo = userMapper.getData(loginInfo);
+			if(userInfo==null){
+				userInfo = new UserInfo();
+				userInfo.setErrorCode(Configuration.ErrorCodes.ER1000.getCodeName());
+				return userInfo;
+			} else {
+				userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				return userInfo;
+			}
+		} else {
+			userInfo = new UserInfo();
+			userInfo.setErrorCode(Configuration.ErrorCodes.ER1000.getCodeName());
+			return userInfo;
+		}
+		
 	}
 	public UserInfo login_file(LoginInfo loginInfo){
 		
@@ -42,8 +56,8 @@ public class UserDao implements Dao {
 						userInfo.setErrorCode("Success");
 						userInfo.setUserId(userData[0]);
 						userInfo.setUserPassword(userData[1]);
-						userInfo.setName(userData[2]);
-						userInfo.setUserType(Integer.parseInt(userData[3]));
+						userInfo.setUser_Name(userData[2]);
+						userInfo.setUser_Type(Integer.parseInt(userData[3]));
 						scanner.close();
 						return userInfo;
 					} else {

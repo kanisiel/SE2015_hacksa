@@ -2,12 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <typeAliases>
-    	<typeAlias alias="user" type="kr.ac.mju.model.User"/>
-    </typeAliases>
-    
     <mappers>
 		<mapper class="kr.ac.mju.mapper.UserMapper"/>
     </mappers> 
 </configuration>
-<!-- <mapper resource="classpath*:mapper/UserMapper.xml" /> -->

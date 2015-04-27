@@ -3,11 +3,11 @@ package kr.ac.mju.model;
 public class User implements CEntity {
 
 	private static final long serialVersionUID = 1L;
-	private String u_ID;
+	private String UID;
 	private String userId;
 	private String userPassword;
-	private String userName;
-	private int userType;
+	private String user_Name;
+	private int user_Type;
 	
 	public String getUserId() {
 		return userId;
@@ -15,29 +15,29 @@ public class User implements CEntity {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String name) {
-		userName = name;
-	}
 	public String getUserPassword() {
 		return userPassword;
 	}
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	public int getUserType() {
-		return userType;
+	public String getUID() {
+		return UID;
 	}
-	public void setUserType(int userType) {
-		this.userType = userType;
+	public void setUID(String UID) {
+		this.UID = UID;
 	}
-	public String getU_ID() {
-		return u_ID;
+	public String getUser_Name() {
+		return user_Name;
 	}
-	public void setU_ID(String u_ID) {
-		this.u_ID = u_ID;
+	public void setUser_Name(String user_Name) {
+		this.user_Name = user_Name;
+	}
+	public int getUser_Type() {
+		return user_Type;
+	}
+	public void setUser_Type(int user_Type) {
+		this.user_Type = user_Type;
 	}
 	
 }

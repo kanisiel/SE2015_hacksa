@@ -6,7 +6,7 @@
     
     <select id="getData" parameterType="kr.ac.mju.model.LoginInfo" resultType="kr.ac.mju.model.UserInfo">
     
-    SELECT * FROM USER WHERE USERID = #{userId} AND USERPASSWORD = #{userPassword}
+    SELECT * FROM USERS WHERE USERID = #{userId} AND USERPASSWORD = #{userPassword}
             
     </select>
     

@@ -1,9 +1,6 @@
 package kr.ac.mju.mapper;
 
-import java.util.List;
-
 import kr.ac.mju.model.LoginInfo;
-import kr.ac.mju.model.User;
 import kr.ac.mju.model.UserInfo;
 
 public interface UserMapper {

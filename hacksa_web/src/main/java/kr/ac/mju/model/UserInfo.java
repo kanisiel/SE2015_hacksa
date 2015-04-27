@@ -3,10 +3,11 @@ package kr.ac.mju.model;
 public class UserInfo implements Info {
 	
 	private String errorCode;
+	private String UID;
 	private String userId;
 	private String userPassword;
-	private String name;
-	private int userType;
+	private String user_Name;
+	private int user_Type;
 	
 	
 	public String getErrorCode() {
@@ -27,17 +28,23 @@ public class UserInfo implements Info {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	public String getName() {
-		return name;
+	public String getUID() {
+		return UID;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUID(String uID) {
+		UID = uID;
 	}
-	public int getUserType() {
-		return userType;
+	public String getUser_Name() {
+		return user_Name;
 	}
-	public void setUserType(int userType) {
-		this.userType = userType;
+	public void setUser_Name(String user_Name) {
+		this.user_Name = user_Name;
+	}
+	public int getUser_Type() {
+		return user_Type;
+	}
+	public void setUser_Type(int user_Type) {
+		this.user_Type = user_Type;
 	}
 		
 }
