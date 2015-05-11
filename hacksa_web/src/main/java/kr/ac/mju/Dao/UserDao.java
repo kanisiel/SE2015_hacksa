@@ -2,6 +2,7 @@ package kr.ac.mju.Dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,18 +25,26 @@ public class UserDao implements Dao {
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		if(userMapper!=null){
 			System.out.println(loginInfo.getUserId()+" / "+loginInfo.getUserPassword());
-			userInfo = userMapper.getData(loginInfo);
-			if(userInfo==null){
+			try {
+				userInfo = userMapper.getData(loginInfo);
+				if(userInfo == null){
+					userInfo = new UserInfo();
+					userInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+					return userInfo;
+				} else {
+					userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+					return userInfo;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				userInfo = new UserInfo();
-				userInfo.setErrorCode(Configuration.ErrorCodes.ER1000.getCodeName());
-				return userInfo;
-			} else {
-				userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				userInfo.setErrorCode(Configuration.ErrorCodes.ER0001.getCodeName());
 				return userInfo;
 			}
 		} else {
 			userInfo = new UserInfo();
-			userInfo.setErrorCode(Configuration.ErrorCodes.ER1000.getCodeName());
+			userInfo.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
 			return userInfo;
 		}
 		

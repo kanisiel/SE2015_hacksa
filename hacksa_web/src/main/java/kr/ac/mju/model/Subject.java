@@ -1,6 +1,6 @@
 package kr.ac.mju.model;
 
-public class Gwamok implements CEntity {
+public class Subject implements CEntity {
 
 	private static final long serialVersionUID = 1L;
 	private String gwamok_id;

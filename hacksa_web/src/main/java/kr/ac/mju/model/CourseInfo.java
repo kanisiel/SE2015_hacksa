@@ -2,22 +2,22 @@ package kr.ac.mju.model;
 
 import java.util.Vector;
 
-public class GangjwaInfo implements Info {
+public class CourseInfo implements Info {
 	
-	private Vector<Gangjwa> list;
+	private Vector<Course> list;
 	private String errorCode;
 	
-	public GangjwaInfo() {
-		this.list = new Vector<Gangjwa>();
+	public CourseInfo() {
+		this.list = new Vector<Course>();
 		errorCode = null;
 	}
-	public void addGangjwa(Gangjwa gangjwa){
-		this.list.add(gangjwa);
+	public void addGangjwa(Course course){
+		this.list.add(course);
 	}
-	public Gangjwa getGangjwa(int index){
+	public Course getGangjwa(int index){
 		return this.list.get(index);
 	}
-	public Vector<Gangjwa> getList(){
+	public Vector<Course> getList(){
 		return this.list;
 	}
 	public String getErrorCode() {

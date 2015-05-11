@@ -2,22 +2,22 @@ package kr.ac.mju.model;
 
 import java.util.Vector;
 
-public class GwamokInfo implements Info {
+public class SubjectInfo implements Info {
 
-	private Vector<Gwamok> list;
+	private Vector<Subject> list;
 	private String errorCode;
 	
-	public GwamokInfo() {
-		this.list = new Vector<Gwamok>();
+	public SubjectInfo() {
+		this.list = new Vector<Subject>();
 		errorCode = null;
 	}
-	public void addGwamok(Gwamok gwamok){
-		this.list.add(gwamok);
+	public void addGwamok(Subject subject){
+		this.list.add(subject);
 	}
-	public Gwamok getGwamok(int index){
+	public Subject getGwamok(int index){
 		return this.list.get(index);
 	}
-	public Vector<Gwamok> getList(){
+	public Vector<Subject> getList(){
 		return this.list;
 	}
 	public String getErrorCode() {

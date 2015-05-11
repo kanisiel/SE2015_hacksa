@@ -11,7 +11,7 @@
 <div align="center">
 <h1>학사관리 시스템</h1>
 
-<h2>${userInfo.getName()}씨, 반갑습니다.</h2>
+<h2>${userInfo.getUser_Name()}씨, 반갑습니다.</h2>
 <form action="sugangController/sincheong" method=POST>
 <table width="80%" border="2px" cellpadding="0px" cellspacing="0px" style="border-weight:2px;border-color:#33AA33;">
 	<tr align="center" height="30px">
@@ -33,12 +33,14 @@
 	</tr>
 </c:forEach>
 </table>
-<!-- <table>
-	<tr>
-		<td><input type="submit" value="개설"/></td>
-		<td><input type="reset" value="리셋"/></td>
-	</tr>
-</table> -->
+<!-- 
+		<table>
+			<tr>
+				<td>
+					<font style="font-size:13px;color:#FF3333;">${courseInfo.getSubtitleKor()}</font>
+				</td>
+			</tr>
+		</table> -->
 </form>
 <table>
 	<tr>

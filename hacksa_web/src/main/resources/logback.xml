@@ -1,0 +1,3 @@
+<root level="debug">
+    <appender-ref ref="console"/>
+</root>

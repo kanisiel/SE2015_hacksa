@@ -3,6 +3,9 @@ package kr.ac.mju.control;
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.LoginService;
+import kr.ac.mju.service.LoginService2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,34 +40,36 @@ public class LoginController {
 	ModelAndView modelAndView = new ModelAndView();
 	
 	@RequestMapping(value = "/loginController/login.do", method = RequestMethod.POST)
-	public ModelAndView login(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	public ModelAndView login(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+		UserInfo userInfo = null;
 		this.modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
 		
+		Map<String, Object> map = new HashMap<String, Object>();
 		loginInfo.setUserId(userID);
 		loginInfo.setUserPassword(userPassword);
 		logger.info("ID :" + userID);
 		logger.info("Password :" + userPassword);
-		UserInfo userInfo = this.loginService.login(loginInfo);
-		
+		userInfo = this.loginService.login(loginInfo);
+		map.put("userInfo", userInfo);
 		
 		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
-			request.getSession().setAttribute("userInfo", userInfo);
 			this.modelAndView.setViewName("logged");
-			//redir.addFlashAttribute("userInfo", userInfo);
-			return this.modelAndView;
+			
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(userInfo.getErrorCode());
+			map.put("errorCode", errorCodes);
 			this.modelAndView.setViewName("redirect:/");
-			redir.addFlashAttribute("userInfo", errorCodes);
-			return this.modelAndView;
 		}
+		redir.addFlashAttribute("map", map);
+		return this.modelAndView;
 	}
 	@RequestMapping(value = "/loginController/logout", method = RequestMethod.GET)
-	public String logout() throws UnsupportedEncodingException {
+	public String logout( RedirectAttributes redir ) throws UnsupportedEncodingException {
+		redir.addFlashAttribute("userInfo", null);
 		return "redirect:/";
 	}
 	

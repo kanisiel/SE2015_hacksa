@@ -2,10 +2,10 @@ package kr.ac.mju.service;
 
 import javax.annotation.Resource;
 
-import kr.ac.mju.Dao.GangjwaDao;
+import kr.ac.mju.Dao.CourseDao;
 import kr.ac.mju.Dao.GwamokDao;
-import kr.ac.mju.model.GangjwaInfo;
-import kr.ac.mju.model.GwamokInfo;
+import kr.ac.mju.model.CourseInfo;
+import kr.ac.mju.model.SubjectInfo;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,15 +14,18 @@ public class SugangService {
 	@Resource(name="gwamokDao")
 	private GwamokDao gwamokDao;
 	
-	@Resource(name="gangjwaDao")
-	private GangjwaDao gangjwaDao;
+	@Resource(name="courseDao")
+	private CourseDao courseDao;
 	
-	public GwamokInfo getGwamoks(){
+	public SubjectInfo getGwamoks(){
 		return gwamokDao.getList();
 	}
 	
-	public GangjwaInfo getGangjwas(){
-		return gangjwaDao.getList();
+	public CourseInfo getAllCourse(){
+		return courseDao.getAllCourse();
+	}
+	public CourseInfo getCollegeCourse(int college){
+		return courseDao.getCollegeCourse(college);
 	}
 	
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+         PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="kr.ac.mju.mapper.CourseMapper">
+    
+    <select id="listAllCourse" resultType="kr.ac.mju.model.CourseInfo">
+    
+    SELECT * FROM COURSE
+            
+    </select>
+    <select id="listCollegeCourse" parameterType="int" resultType="kr.ac.mju.model.CourseInfo">
+    
+    SELECT * FROM COURSE where COLLEGE = #{college}
+            
+    </select>
+    <select id="listDeptCourse" parameterType="int" resultType="kr.ac.mju.model.CourseInfo">
+    
+    SELECT * FROM COURSE where DEPT = #{DEPT}
+            
+    </select>
+    
+</mapper>

@@ -5,8 +5,9 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
-import kr.ac.mju.model.GangjwaInfo;
-import kr.ac.mju.model.GwamokInfo;
+import kr.ac.mju.model.CourseInfo;
+import kr.ac.mju.model.SubjectInfo;
+import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
 
 import org.slf4j.Logger;
@@ -29,43 +30,54 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	
 	ModelAndView modelAndView = new ModelAndView();
 	
-	@RequestMapping(value = "/sugangController/gwamokList", method = RequestMethod.GET)
-	public ModelAndView gwamokList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	@RequestMapping(value = "/sugangController/createCourse", method = RequestMethod.GET)
+	public ModelAndView subjectList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 
 		request.setCharacterEncoding("UTF-8");
-		GwamokInfo gwamokInfo = sugangService.getGwamoks();
+		SubjectInfo subjectInfo = sugangService.getGwamoks();
 		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 
-		logger.info("에러코드 :" + gwamokInfo.getErrorCode());
-		if(gwamokInfo.getErrorCode().equals("Success")){
-			request.getSession().setAttribute("gwamokInfo", gwamokInfo);
-			modelAndView.setViewName("gwamok");
-			redir.addFlashAttribute("Info", gwamokInfo);
+		logger.info("에러코드 :" + subjectInfo.getErrorCode());
+		if(subjectInfo.getErrorCode().equals("Success")){
+			request.getSession().setAttribute("gwamokInfo", subjectInfo);
+			modelAndView.setViewName("subject");
+			redir.addFlashAttribute("Info", subjectInfo);
 			return modelAndView;
 		} else {
-			ErrorCodes errorCodes = ErrorCodes.valueOf(gwamokInfo.getErrorCode());
+			ErrorCodes errorCodes = ErrorCodes.valueOf(subjectInfo.getErrorCode());
 			request.getSession().setAttribute("gwamokInfo", errorCodes);
-			modelAndView.setViewName("sugang");
+			modelAndView.setViewName("logged");
 			return modelAndView;
 		}
 	}
-	@RequestMapping(value = "/sugangController/gangjwaList", method = RequestMethod.GET)
-	public ModelAndView gangjwaList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.GET)
+	public ModelAndView createSubject(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 
 		request.setCharacterEncoding("UTF-8");
-		GangjwaInfo gangjwaInfo = sugangService.getGangjwas();
+		//request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
+
+		redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));
+		modelAndView.setViewName("createSubject");
+		return modelAndView;
+		
+	}
+	@RequestMapping(value = "/sugangController/register", method = RequestMethod.GET)
+	public ModelAndView courseList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+
+		request.setCharacterEncoding("UTF-8");
+		CourseInfo courseInfo = sugangService.getAllCourse();
 		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 
-		logger.info("에러코드 :" + gangjwaInfo.getErrorCode());
-		if(gangjwaInfo.getErrorCode().equals("Success")){
-			request.getSession().setAttribute("gangjwaInfo", gangjwaInfo);
-			modelAndView.setViewName("gangjwa");
-			redir.addFlashAttribute("Info", gangjwaInfo);
+		logger.info("에러코드 :" + courseInfo.getErrorCode());
+		if(courseInfo.getErrorCode().equals("Success")){
+			request.getSession().setAttribute("courseInfo", courseInfo);
+			modelAndView.setViewName("course");
+			redir.addFlashAttribute("Info", courseInfo);
 			return modelAndView;
 		} else {
-			ErrorCodes errorCodes = ErrorCodes.valueOf(gangjwaInfo.getErrorCode());
-			request.getSession().setAttribute("gangjwaInfo", errorCodes);
-			modelAndView.setViewName("sugang");
+			ErrorCodes errorCodes = ErrorCodes.valueOf(courseInfo.getErrorCode());
+			request.getSession().setAttribute("courseInfo", errorCodes);
+			modelAndView.setViewName("logged");
 			return modelAndView;
 		}
 	}
@@ -74,7 +86,7 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 		request.setCharacterEncoding("UTF-8");
 		//logger.info("에러코드 :" + gwamokInfo.getErrorCode());
 		String gwamokID = request.getParameter("gwamokID");
-		Gwamok gwamok = null;
+		Subject gwamok = null;
 		String gangjwa_id = null;
 		
 		if(gwamokID.isEmpty()){
@@ -82,17 +94,17 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 			modelAndView.setViewName("redirect:/sugangController/gwamokList");
 			return modelAndView;
 		} else {
-			GwamokInfo gwamokInfo = (GwamokInfo) request.getSession().getAttribute("gwamokInfo");
-			for(Gwamok g : gwamokInfo.getList()){
+			SubjectInfo gwamokInfo = (SubjectInfo) request.getSession().getAttribute("gwamokInfo");
+			for(Subject g : gwamokInfo.getList()){
 				if(g.getGwamok_id() == Integer.parseInt(gwamokID)){
 					 gwamok = g;
 				}
 			}
-			GangjwaInfo gangjwaInfo = sugangService.getGangjwas();
+			CourseInfo gangjwaInfo = sugangService.getGangjwas();
 			if(gangjwaInfo.getList().isEmpty()){
 				gangjwa_id = gwamok.getGwamok_id()+"01";
 			} else {
-				for(Gangjwa g : gangjwaInfo.getList()){
+				for(Course g : gangjwaInfo.getList()){
 					//if(g.getGangjwa_id().contains(gwamokID)){
 						
 				//	}

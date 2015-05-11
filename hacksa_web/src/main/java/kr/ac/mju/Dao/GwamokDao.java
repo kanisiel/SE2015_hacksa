@@ -6,50 +6,50 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import kr.ac.mju.Conf.Configuration.Files;
-import kr.ac.mju.model.Gwamok;
-import kr.ac.mju.model.GwamokInfo;
+import kr.ac.mju.model.Subject;
+import kr.ac.mju.model.SubjectInfo;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class GwamokDao implements Dao {
-	private GwamokInfo gwamokInfo = new GwamokInfo();
+	private SubjectInfo subjectInfo = new SubjectInfo();
 
-	public GwamokInfo getList(){
+	public SubjectInfo getList(){
 		String[] gwamokData;
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource(Files.Gwamok.getFileName()).getFile());
 		
 		try (Scanner scanner = new Scanner(file)){
 			while (scanner.hasNextLine()) {
-				Gwamok gwamok = new Gwamok();
+				Subject subject = new Subject();
 				String line = scanner.nextLine();
 				gwamokData = line.split("\t");
-				gwamok.setGwamok_id(gwamokData[0]);
-				gwamok.setName(gwamokData[1]);
-				gwamok.setHakjeom(Integer.parseInt(gwamokData[2]));
+				subject.setGwamok_id(gwamokData[0]);
+				subject.setName(gwamokData[1]);
+				subject.setHakjeom(Integer.parseInt(gwamokData[2]));
 				
-				if(check_duplication(gwamok) == 1){
-					this.gwamokInfo.addGwamok(gwamok);
+				if(check_duplication(subject) == 1){
+					this.subjectInfo.addGwamok(subject);
 				}
 			}
-			this.gwamokInfo.setErrorCode("Success");
+			this.subjectInfo.setErrorCode("Success");
 		 	scanner.close();
-			return this.gwamokInfo;
+			return this.subjectInfo;
 		} catch (IOException e) {
 			e.printStackTrace();
-			this.gwamokInfo.setErrorCode("ER2000");
-			return this.gwamokInfo;
+			this.subjectInfo.setErrorCode("ER2000");
+			return this.subjectInfo;
 		}
 	}
 	
-	public int check_duplication(Gwamok gwamok){
-		Vector<Gwamok> list = this.gwamokInfo.getList();
+	public int check_duplication(Subject subject){
+		Vector<Subject> list = this.subjectInfo.getList();
 		if(list.isEmpty()){
 			return 1;
 		} else {
-			for(Gwamok gwamoks : list){
-				if(gwamoks.getGwamok_id().equals(gwamok.getGwamok_id())){				
+			for(Subject subjects : list){
+				if(subjects.getGwamok_id().equals(subject.getGwamok_id())){				
 					return -1;
 				}
 			}
