@@ -56,7 +56,7 @@ public class LoginService2 {
 			if(id.equals(userID) && password.equals(userPassword)){
 				userInfo = new UserInfo();
 				userInfo.setUserId(id);
-				userInfo.setUser_Name(resultSet.getString("name"));
+				userInfo.setUserName(resultSet.getString("name"));
 				userInfo.setUserPassword(password);
 				userInfo.setErrorCode("Success");
 				closeConnection(connection, statement, resultSet);

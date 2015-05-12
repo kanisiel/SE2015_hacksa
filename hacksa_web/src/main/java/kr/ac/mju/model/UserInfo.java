@@ -3,13 +3,25 @@ package kr.ac.mju.model;
 public class UserInfo implements Info {
 	
 	private String errorCode;
-	private String UID;
+	private String subscribe_kor;
+	private String uIdx;
 	private String userId;
 	private String userPassword;
-	private String user_Name;
-	private int user_Type;
+	private String userName;
+	private int userType;
 	
+	public UserInfo() {	}
 	
+	public UserInfo(String uIdx, String userId, String userPassword,
+			String userName, int userType) {
+		super();
+		this.uIdx = uIdx;
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userName = userName;
+		this.userType = userType;
+	}
+
 	public String getErrorCode() {
 		return errorCode;
 	}
@@ -28,23 +40,29 @@ public class UserInfo implements Info {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	public String getUID() {
-		return UID;
+	public String getUIdx() {
+		return uIdx;
 	}
-	public void setUID(String uID) {
-		UID = uID;
+	public void setUIdx(String uIdx) {
+		this.uIdx = uIdx;
 	}
-	public String getUser_Name() {
-		return user_Name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUser_Name(String user_Name) {
-		this.user_Name = user_Name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public int getUser_Type() {
-		return user_Type;
+	public int getUserType() {
+		return userType;
 	}
-	public void setUser_Type(int user_Type) {
-		this.user_Type = user_Type;
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+	public String getSubscribe_kor() {
+		return subscribe_kor;
+	}
+	public void setSubscribe_kor(String subscribe_kor) {
+		this.subscribe_kor = subscribe_kor;
 	}
 		
 }

@@ -1,13 +1,14 @@
 package kr.ac.mju.control;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.model.CourseInfo;
+import kr.ac.mju.model.Subject;
 import kr.ac.mju.model.SubjectInfo;
-import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
 
 import org.slf4j.Logger;
@@ -31,10 +32,10 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	ModelAndView modelAndView = new ModelAndView();
 	
 	@RequestMapping(value = "/sugangController/createCourse", method = RequestMethod.GET)
-	public ModelAndView subjectList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	public ModelAndView subjectList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, SQLException {
 
 		request.setCharacterEncoding("UTF-8");
-		SubjectInfo subjectInfo = sugangService.getGwamoks();
+		SubjectInfo subjectInfo = sugangService.getList();
 		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 
 		logger.info("에러코드 :" + subjectInfo.getErrorCode());
@@ -51,9 +52,26 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 		}
 	}
 	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.GET)
+	public ModelAndView createForm(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+
+		request.setCharacterEncoding("UTF-8");
+		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
+
+		redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));
+		modelAndView.setViewName("createSubject");
+		return modelAndView;
+		
+	}
+	@RequestMapping(value = "/sugangController/createSubject.do", method = RequestMethod.POST)
 	public ModelAndView createSubject(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 
 		request.setCharacterEncoding("UTF-8");
+		String sid = request.getParameter("SID");
+		String name = request.getParameter("NAME");
+		int unit = Integer.parseInt(request.getParameter("UNIT"));
+		
+		Subject subject = new Subject(sid, name, unit);
+		
 		//request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 
 		redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));

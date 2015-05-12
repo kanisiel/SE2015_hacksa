@@ -8,7 +8,8 @@
 <title>강좌 정보 입력</title>
 </head>
 <body>
-	<form action="loginController/login.do" method="post">
+<div align="center">
+	<form action="/sugangController/createSubject.do" method="post">
 		<table cellspacing=0 cellpadding=0 class="inputTable">
 			<tr>
 				<td class="titleTD">과목번호</td><td class="inputTD"><input id="SID" type="text"/></td>
@@ -26,5 +27,6 @@
 			</tr>
 		</table>
 	</form>
+</div>
 </body>
 </html>

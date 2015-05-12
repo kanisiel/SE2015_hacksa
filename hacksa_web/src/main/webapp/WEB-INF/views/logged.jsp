@@ -11,15 +11,15 @@
 <div align="center">
 <h1>학사관리 시스템</h1>
 
-<h2>${map.userInfo.getUser_Name()}씨, 반갑습니다.</h2>
+<h2>${userInfo.getUserName()}씨, 반갑습니다.</h2>
 
-<c:if test="${map.userInfo.getUser_Type()==1 }">
+<c:if test="${userInfo.getUserType()==1 }">
 	<a href="${pageContext.request.contextPath}/sugangController/register">수강신청</a>
 </c:if>
-<c:if test="${map.userInfo.getUser_Type()==2 }">
+<c:if test="${userInfo.getUserType()==2 }">
 	<a href="${pageContext.request.contextPath}/sugangController/createCourse">강좌개설</a>
 </c:if>
-<c:if test="${map.userInfo.getUser_Type()==3 }">
+<c:if test="${userInfo.getUserType()==3 }">
 	<a href="${pageContext.request.contextPath}/sugangController/createSubject">과목개설</a>
 </c:if>
 <a href="${pageContext.request.contextPath}/loginController/logout">로그아웃</a>

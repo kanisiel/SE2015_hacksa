@@ -1,5 +1,7 @@
 package kr.ac.mju.service;
 
+import java.sql.SQLException;
+
 import javax.annotation.Resource;
 
 import kr.ac.mju.Dao.UserDao;
@@ -14,7 +16,7 @@ public class LoginService {
 	@Resource(name="userDao")
 	private UserDao userDao;
 	
-	public UserInfo login(LoginInfo loginInfo){
+	public UserInfo login(LoginInfo loginInfo) throws SQLException{
 		return userDao.login(loginInfo);
 	}
 }

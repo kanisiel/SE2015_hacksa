@@ -26,7 +26,7 @@
 		<table>
 			<tr>
 				<td>
-					<font style="font-size:13px;color:#FF3333;">${map.errorCode.getSubtitleKor()}</font>
+					<font style="font-size:13px;color:#FF3333;">${userInfo.getSubscribe_kor()}</font>
 				</td>
 			</tr>
 		</table>

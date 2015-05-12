@@ -1,21 +1,9 @@
 package kr.ac.mju.Dao;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Scanner;
-import java.util.Vector;
-
 import kr.ac.mju.Conf.Configuration;
-import kr.ac.mju.Conf.Configuration.Files;
 import kr.ac.mju.mapper.CourseMapper;
-import kr.ac.mju.model.Course;
 import kr.ac.mju.model.CourseInfo;
-import kr.ac.mju.model.LoginInfo;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,7 +19,7 @@ public class CourseDao implements Dao {
 		CourseMapper courseMapper = sqlSession.getMapper(CourseMapper.class);
 		if(courseMapper!=null){
 			try {
-				courseInfo = courseMapper.listAllCourse();
+				courseInfo = courseMapper.listAll();
 				if(courseInfo == null){
 					courseInfo = new CourseInfo();
 					courseInfo.setErrorCode(Configuration.ErrorCodes.ER3000.getCodeName());

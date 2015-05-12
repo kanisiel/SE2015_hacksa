@@ -20,31 +20,29 @@ public class UserDao implements Dao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public UserInfo login(LoginInfo loginInfo){
+	public UserInfo login(LoginInfo loginInfo) throws SQLException{
 		UserInfo userInfo;
+		
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		if(userMapper!=null){
 			System.out.println(loginInfo.getUserId()+" / "+loginInfo.getUserPassword());
-			try {
-				userInfo = userMapper.getData(loginInfo);
-				if(userInfo == null){
-					userInfo = new UserInfo();
-					userInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
-					return userInfo;
-				} else {
-					userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
-					return userInfo;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//sqlSession.selectList("kr.ac.mju.mapper.UserMapper.getData");
+			//userInfo = sqlSession.selectOne("kr.ac.mju.mapper.UserMapper.getData", loginInfo);
+			userInfo = userMapper.getData(loginInfo);
+			if(userInfo == null){
 				userInfo = new UserInfo();
-				userInfo.setErrorCode(Configuration.ErrorCodes.ER0001.getCodeName());
+				userInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				userInfo.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return userInfo;
+			} else {
+				userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				userInfo.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
 				return userInfo;
 			}
 		} else {
 			userInfo = new UserInfo();
 			userInfo.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			userInfo.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
 			return userInfo;
 		}
 		
@@ -65,8 +63,8 @@ public class UserDao implements Dao {
 						userInfo.setErrorCode("Success");
 						userInfo.setUserId(userData[0]);
 						userInfo.setUserPassword(userData[1]);
-						userInfo.setUser_Name(userData[2]);
-						userInfo.setUser_Type(Integer.parseInt(userData[3]));
+						userInfo.setUserName(userData[2]);
+						userInfo.setUserType(Integer.parseInt(userData[3]));
 						scanner.close();
 						return userInfo;
 					} else {
