@@ -9,23 +9,34 @@
 </head>
 <body>
 <div align="center">
-<h1>학사관리 시스템</h1>
+<h1>과목 리스트</h1>
 
-<h2>${userInfo.getName()}씨, 반갑습니다.</h2>
+<h2>${userInfo.getUserName()}씨, 반갑습니다.</h2>
 <form action="sugangController/gaeseol" method=POST>
 <table>
-<c:forEach items="${gwamokInfo.getList() }" var="gwamok" varStatus="idx">
+<c:choose>
+<c:when test="${subjectInfo != null }">
+	<c:forEach items="${subjectInfo.getList() }" var="subject" varStatus="idx">
+		<tr>
+			<td><input name="SID" type="radio" value="${subject.getSid() }" /></td>
+			<td><c:out value="${subject.getSid() }"></c:out></td>
+			<td><c:out value="${subject.getName() }"></c:out></td>
+			<td><c:out value="${subject.getUnit() }"></c:out></td>
+		</tr>
+	</c:forEach>
+</c:when>
+<c:when test="${subjectInfo == null }">
 	<tr>
-		<td><input name="gwamokID" type="radio" value="${gwamok.getGwamok_id() }" /></td>
-		<td><c:out value="${gwamok.getGwamok_id() }"></c:out></td>
-		<td><c:out value="${gwamok.getName() }"></c:out></td>
-		<td><c:out value="${gwamok.getHakjeom() }"></c:out></td>
+		<td>${ isEmpty }
+		</td>
 	</tr>
-</c:forEach>
+</c:when>
+</c:choose>
 </table>
 <table>
 	<tr>
-		<td><input type="submit" value="개설"/></td>
+		<td><button onclick="location.href='${pageContext.request.contextPath}/createSubject'">개설</button>
+		<td><input type="submit" value="변경"/></td>
 		<td><input type="reset" value="리셋"/></td>
 	</tr>
 </table>

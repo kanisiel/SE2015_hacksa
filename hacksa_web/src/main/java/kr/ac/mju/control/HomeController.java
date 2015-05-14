@@ -49,13 +49,6 @@ public class HomeController {
 	public String logged() throws UnsupportedEncodingException {
 		return "logged";
 	}
-	/*@RequestMapping(value = "/sugang", method = RequestMethod.GET)
-	public String sugang(Locale locale, Model model) {
-		//logger.info("Welcome home! The client locale is {}.", locale);
-		
-		
-		return "sugang";
-	}*/
 	
 	
 }

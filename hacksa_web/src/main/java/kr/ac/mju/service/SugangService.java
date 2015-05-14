@@ -22,7 +22,9 @@ public class SugangService {
 	private CourseDao courseDao;
 	
 	public SubjectInfo getList() throws SQLException{
-		return subjectDao.getList();
+		SubjectInfo subjectInfo = subjectDao.getList();
+		System.out.println(subjectInfo.getErrorCode());
+		return subjectInfo;
 	}
 	
 	public CourseInfo getAllCourse(){

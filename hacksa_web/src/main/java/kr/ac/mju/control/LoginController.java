@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.ac.mju.model.DepartmentInfo;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.LoginService;
@@ -27,40 +28,72 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("userInfo")
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	LoginService loginService;
 	
-	@Resource(name="loginInfo")
-	LoginInfo loginInfo;
+	@Autowired
+	LoginService2 loginService2;
+	
+	@ModelAttribute("loginInfo")
+	LoginInfo loginInfo(){
+		return new LoginInfo();
+	}
 	
 	
-	ModelAndView modelAndView = new ModelAndView();
+	ModelAndView modelAndView;
+	
+//	@RequestMapping(value = "/loginController/createAccount.do", method = RequestMethod.POST)
+//	public ModelAndView createAccount(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+//		this.modelAndView = new ModelAndView();
+//		request.setCharacterEncoding("UTF-8");
+//		loginService2.createAccount();
+//		modelAndView.setViewName("redirect:/");
+//		return modelAndView;
+//	}
+	@RequestMapping(value = "/loginController/createAccount.do", method = RequestMethod.POST)
+	public ModelAndView createAccount(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+		this.modelAndView = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+		return modelAndView;
+	}
+	@RequestMapping(value = "/loginController/registerAccount", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute("loginInfo") LoginInfo loginInfo, HttpServletRequest request) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+		this.modelAndView = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+		String userID = request.getParameter("userID");
+		String userPassword = request.getParameter("userPassword");
+		loginInfo.setUserId(userID);
+		loginInfo.setUserPassword(userPassword);
+		DepartmentInfo departmentInfo = loginService.getList();
+		modelAndView.addObject("loginInfo", loginInfo);
+		modelAndView.addObject("departments", departmentInfo);
+		modelAndView.setViewName("registerAccount");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value = "/loginController/login.do", method = RequestMethod.POST)
-	public ModelAndView login(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+	public ModelAndView login(@ModelAttribute("loginInfo") LoginInfo loginInfo, HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
 		UserInfo userInfo = null;
 		this.modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
-		Map<String, Object> map = new HashMap<String, Object>();
 		
 		loginInfo.setUserId(userID);
 		loginInfo.setUserPassword(userPassword);
 		logger.info("ID :" + userID);
 		logger.info("Password :" + userPassword);
 		userInfo = this.loginService.login(loginInfo);
-		request.setAttribute("userInfo", userInfo);
-		redir.addFlashAttribute("userInfo", userInfo);
+		modelAndView.addObject("userInfo", userInfo);
 		
 		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
 			this.modelAndView.setViewName("logged");
 		} else {
-			redir.addFlashAttribute("userInfo", userInfo);
 			this.modelAndView.setViewName("redirect:/");
 		}
 		return this.modelAndView;

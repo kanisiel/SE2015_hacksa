@@ -5,6 +5,17 @@
 <html>
 <head>
 	<title>Home</title>
+<script type="text/javascript">
+	function login(form){
+		form.action = "loginController/login.do";
+		form.submit();
+	}
+	
+	function register(form){
+		form.action = "loginController/registerAccount";
+		form.submit();
+	}
+</script>
 </head>
 <body>
 <div align="center">
@@ -32,7 +43,8 @@
 		</table>
 		<table>
 			<tr height="40px">
-				<td><input type="submit" value="로그인"></td>
+				<td><button onclick="register(this.form)">계정 생성</button></td>
+				<td><button onclick="login(this.form)">로그인</button></td>
 				<td><input type="reset" value="리셋"></td>
 			</tr>
 		</table>

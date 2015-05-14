@@ -9,18 +9,22 @@ import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.model.CourseInfo;
 import kr.ac.mju.model.Subject;
 import kr.ac.mju.model.SubjectInfo;
+import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("userInfo")
 public class SugangController {
 	
 private static final Logger logger = LoggerFactory.getLogger(SugangController.class);
@@ -28,43 +32,54 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	@Autowired
 	SugangService sugangService;
 	
+	@ModelAttribute("userInfo")  
+    public UserInfo userInfo() {  
+        return new UserInfo();  
+    } 
 	
-	ModelAndView modelAndView = new ModelAndView();
+	ModelAndView modelAndView;
 	
 	@RequestMapping(value = "/sugangController/createCourse", method = RequestMethod.GET)
-	public ModelAndView subjectList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, SQLException {
+	public ModelAndView createSubject(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
+		modelAndView = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
+		modelAndView.setViewName("createSubject");
+		return modelAndView;
+	}
 
+	@RequestMapping(value = "/sugangController/subjectList", method = RequestMethod.GET)
+	public ModelAndView subjectList(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
+		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		SubjectInfo subjectInfo = sugangService.getList();
-		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
+		modelAndView.addObject("userInfo",request.getSession().getAttribute("userInfo"));
 
 		logger.info("에러코드 :" + subjectInfo.getErrorCode());
 		if(subjectInfo.getErrorCode().equals("Success")){
-			request.getSession().setAttribute("gwamokInfo", subjectInfo);
+			modelAndView.addObject("subjectInfo", subjectInfo);
 			modelAndView.setViewName("subject");
-			redir.addFlashAttribute("Info", subjectInfo);
 			return modelAndView;
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(subjectInfo.getErrorCode());
-			request.getSession().setAttribute("gwamokInfo", errorCodes);
+			request.getSession().setAttribute("subjectInfo", errorCodes);
 			modelAndView.setViewName("logged");
 			return modelAndView;
 		}
 	}
+	
 	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.GET)
-	public ModelAndView createForm(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
-
+	public ModelAndView createForm(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
+		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
-		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
-
-		redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));
+		modelAndView.addObject("userInfo", userInfo);
 		modelAndView.setViewName("createSubject");
 		return modelAndView;
 		
 	}
 	@RequestMapping(value = "/sugangController/createSubject.do", method = RequestMethod.POST)
-	public ModelAndView createSubject(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
-
+	public ModelAndView createSubjectQuery(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		String sid = request.getParameter("SID");
 		String name = request.getParameter("NAME");
@@ -81,7 +96,7 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	}
 	@RequestMapping(value = "/sugangController/register", method = RequestMethod.GET)
 	public ModelAndView courseList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
-
+		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		CourseInfo courseInfo = sugangService.getAllCourse();
 		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));

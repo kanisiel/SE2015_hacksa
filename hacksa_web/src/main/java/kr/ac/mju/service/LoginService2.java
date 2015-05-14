@@ -31,6 +31,18 @@ public class LoginService2 {
 		statement.close();
 		resultSet.close();
 	}
+	public void createAccount() throws SQLException, ClassNotFoundException{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connection = null;
+		PreparedStatement statement = null;
+		connection = DriverManager.getConnection(URL, ID, PASSWORD);
+		String accountSQL = "Grant all privileges on *.* to sogong2@localhost"
+							+" identified by 'mju12345' with grant option";
+		statement = connection.prepareStatement(accountSQL);
+		statement.executeUpdate();
+		statement.close();
+		System.out.println("계정 생성");
+	}
 	
 	public UserInfo login(String userID, String userPassword) throws ClassNotFoundException, SQLException{
 		

@@ -20,7 +20,7 @@
 	<a href="${pageContext.request.contextPath}/sugangController/createCourse">강좌개설</a>
 </c:if>
 <c:if test="${userInfo.getUserType()==3 }">
-	<a href="${pageContext.request.contextPath}/sugangController/createSubject">과목개설</a>
+	<a href="${pageContext.request.contextPath}/sugangController/subjectList">과목리스트</a>
 </c:if>
 <a href="${pageContext.request.contextPath}/loginController/logout">로그아웃</a>
 </div>
