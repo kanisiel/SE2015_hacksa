@@ -16,6 +16,7 @@
 		form.submit();
 	}
 </script>
+<link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/form.css"/>'>
 </head>
 <body>
 <div align="center">
@@ -26,7 +27,7 @@
 	<form action="loginController/login.do" method="post">
 		<table>
 			<tr height="40px">
-				<td>유저 아이디</td>
+				<td class="titleTD">유저 아이디</td>
 				<td><input type="text" name="userID"></td>
 			</tr>
 			<tr height="40px">

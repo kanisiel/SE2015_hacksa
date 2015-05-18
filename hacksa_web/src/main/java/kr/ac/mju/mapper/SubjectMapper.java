@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kr.ac.mju.model.Subject;
-import kr.ac.mju.model.SubjectInfo;
 
 public interface SubjectMapper {
 	public List<Subject> listAll() throws SQLException;

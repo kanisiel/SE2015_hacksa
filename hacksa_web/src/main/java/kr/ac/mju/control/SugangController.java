@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.model.CourseInfo;
-import kr.ac.mju.model.Subject;
 import kr.ac.mju.model.SubjectInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
@@ -81,11 +80,11 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	public ModelAndView createSubjectQuery(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
-		String sid = request.getParameter("SID");
-		String name = request.getParameter("NAME");
-		int unit = Integer.parseInt(request.getParameter("UNIT"));
+//		String sid = request.getParameter("SID");
+//		String name = request.getParameter("NAME");
+//		int unit = Integer.parseInt(request.getParameter("UNIT"));
 		
-		Subject subject = new Subject(sid, name, unit);
+		//Subject subject = new Subject(sid, name, unit);
 		
 		//request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 

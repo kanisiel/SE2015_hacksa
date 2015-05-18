@@ -5,12 +5,8 @@ import java.util.List;
 
 import kr.ac.mju.Conf.Configuration;
 import kr.ac.mju.mapper.DepartmentMapper;
-import kr.ac.mju.mapper.SubjectMapper;
 import kr.ac.mju.model.Department;
 import kr.ac.mju.model.DepartmentInfo;
-import kr.ac.mju.model.Subject;
-import kr.ac.mju.model.SubjectInfo;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

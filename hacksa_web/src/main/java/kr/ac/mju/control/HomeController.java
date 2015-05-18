@@ -7,15 +7,10 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import kr.ac.mju.model.UserInfo;
-
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.sun.media.jfxmedia.logging.Logger;
 
 /**
  * Handles requests for the application home page.

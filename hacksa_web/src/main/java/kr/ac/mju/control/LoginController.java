@@ -1,15 +1,10 @@
 package kr.ac.mju.control;
 
-import kr.ac.mju.Conf.Configuration.ErrorCodes;
-
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.ac.mju.model.CollegeInfo;
 import kr.ac.mju.model.DepartmentInfo;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
@@ -68,9 +63,11 @@ public class LoginController {
 		String userPassword = request.getParameter("userPassword");
 		loginInfo.setUserId(userID);
 		loginInfo.setUserPassword(userPassword);
-		DepartmentInfo departmentInfo = loginService.getList();
+		DepartmentInfo departmentInfo = loginService.getDList();
+		CollegeInfo collegeInfo = loginService.getCList();
 		modelAndView.addObject("loginInfo", loginInfo);
 		modelAndView.addObject("departments", departmentInfo);
+		modelAndView.addObject("colleges", collegeInfo);
 		modelAndView.setViewName("registerAccount");
 		return modelAndView;
 	}

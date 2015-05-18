@@ -12,16 +12,17 @@
 <h1>학사관리 시스템</h1>
 
 <h2>${userInfo.getUserName()}씨, 반갑습니다.</h2>
-
-<c:if test="${userInfo.getUserType()==1 }">
-	<a href="${pageContext.request.contextPath}/sugangController/register">수강신청</a>
-</c:if>
-<c:if test="${userInfo.getUserType()==2 }">
-	<a href="${pageContext.request.contextPath}/sugangController/createCourse">강좌개설</a>
-</c:if>
-<c:if test="${userInfo.getUserType()==3 }">
-	<a href="${pageContext.request.contextPath}/sugangController/subjectList">과목리스트</a>
-</c:if>
+<c:choose>
+	<c:when test="${userInfo.getUserType()==1 }">
+		<a href="${pageContext.request.contextPath}/sugangController/register">수강신청</a>
+	</c:when>
+	<c:when test="${userInfo.getUserType()==2 }">
+		<a href="${pageContext.request.contextPath}/sugangController/createCourse">강좌개설</a>
+	</c:when>
+	<c:when test="${userInfo.getUserType()==3 }">
+		<a href="${pageContext.request.contextPath}/sugangController/subjectList">과목리스트</a>
+	</c:when>
+</c:choose>
 <a href="${pageContext.request.contextPath}/loginController/logout">로그아웃</a>
 </div>
 </body>
