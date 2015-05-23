@@ -26,8 +26,6 @@ public class UserDao implements Dao {
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		if(userMapper!=null){
 			System.out.println(loginInfo.getUserId()+" / "+loginInfo.getUserPassword());
-			//sqlSession.selectList("kr.ac.mju.mapper.UserMapper.getData");
-			//userInfo = sqlSession.selectOne("kr.ac.mju.mapper.UserMapper.getData", loginInfo);
 			userInfo = userMapper.getData(loginInfo);
 			if(userInfo == null){
 				userInfo = new UserInfo();
@@ -84,5 +82,18 @@ public class UserDao implements Dao {
 			userInfo.setErrorCode("ER1000");
 			return userInfo;
 		}
+	}
+	public boolean createAccount(UserInfo userInfo) {
+		
+		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+		if(userMapper!=null){
+			try{
+				userMapper.createAccount(userInfo);
+				return true;
+			}catch(Exception e){
+				return false;
+			}
+		}
+		return false;
 	}
 }

@@ -2,8 +2,11 @@ package kr.ac.mju.control;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
+import kr.ac.mju.Conf.Configuration;
+import kr.ac.mju.Conf.Configuration.UserData;
 import kr.ac.mju.model.CollegeInfo;
 import kr.ac.mju.model.DepartmentInfo;
 import kr.ac.mju.model.LoginInfo;
@@ -37,6 +40,10 @@ public class LoginController {
 	LoginInfo loginInfo(){
 		return new LoginInfo();
 	}
+//	@ModelAttribute("userInfo")
+//	UserInfo userInfo(){
+//		return new UserInfo();
+//	}
 	
 	
 	ModelAndView modelAndView;
@@ -50,10 +57,33 @@ public class LoginController {
 //		return modelAndView;
 //	}
 	@RequestMapping(value = "/loginController/createAccount.do", method = RequestMethod.POST)
-	public ModelAndView createAccount(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
+	public ModelAndView createAccount( HttpServletRequest request) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
 		this.modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
-		return modelAndView;
+		String uIdx = request.getParameter("UIDX");
+		String userID = request.getParameter("USERID");
+		String userPassword = request.getParameter("USERPASSWORD");
+		String userName = request.getParameter("USERNAME");
+		String ut = request.getParameter("USERTYPE");
+		String dt = request.getParameter("DEPT");
+		String col = request.getParameter("COLLEGE");
+		int userType = Integer.parseInt(ut);
+		System.out.println(userType);
+		int dept = Integer.parseInt(dt);
+		System.out.println(dept);
+		System.out.println(col);
+		int college = Integer.parseInt(col);
+		UserInfo userInfo = new UserInfo();//uIdx, userID, userPassword, userName, userType, dept, college);
+		if(loginService.createAccount(userInfo)==false){
+			userInfo = new UserInfo();
+			userInfo.setErrorCode(Configuration.ErrorCodes.ER8000.getCodeName());
+			userInfo.setSubscribe_kor(Configuration.ErrorCodes.ER8000.getSubtitleKor());
+			modelAndView.addObject("userInfo", userInfo);
+			return modelAndView;
+		}else {
+			modelAndView.setViewName("redirect:/");
+			return modelAndView;
+		}
 	}
 	@RequestMapping(value = "/loginController/registerAccount", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute("loginInfo") LoginInfo loginInfo, HttpServletRequest request) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {

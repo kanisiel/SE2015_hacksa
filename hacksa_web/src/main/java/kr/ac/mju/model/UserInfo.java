@@ -9,6 +9,8 @@ public class UserInfo implements Info {
 	private String userPassword;
 	private String userName;
 	private int userType;
+	private int dept;
+	private int college;
 	
 	public UserInfo() {	}
 	
@@ -20,6 +22,17 @@ public class UserInfo implements Info {
 		this.userPassword = userPassword;
 		this.userName = userName;
 		this.userType = userType;
+	}
+	public UserInfo(String uIdx, String userId, String userPassword,
+			String userName, int userType, int dept, int college) {
+		super();
+		this.uIdx = uIdx;
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userName = userName;
+		this.userType = userType;
+		this.dept = dept;
+		this.college = college;
 	}
 
 	public String getErrorCode() {
@@ -63,6 +76,22 @@ public class UserInfo implements Info {
 	}
 	public void setSubscribe_kor(String subscribe_kor) {
 		this.subscribe_kor = subscribe_kor;
+	}
+
+	public int getDept() {
+		return dept;
+	}
+
+	public void setDept(int dept) {
+		this.dept = dept;
+	}
+
+	public int getCollege() {
+		return college;
+	}
+
+	public void setCollege(int college) {
+		this.college = college;
 	}
 		
 }

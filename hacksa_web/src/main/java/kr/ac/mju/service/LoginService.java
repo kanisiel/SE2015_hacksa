@@ -37,4 +37,7 @@ public class LoginService {
 	public CollegeInfo getCList() throws SQLException {
 		return collegeDao.getList();
 	}
+	public boolean createAccount(UserInfo userInfo) throws SQLException {
+		return userDao.createAccount(userInfo);
+	}
 }

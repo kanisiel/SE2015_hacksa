@@ -40,7 +40,8 @@
 		} else if(check_password() == false){
 			return false;
 		}else {
-			document.getElementById("register").submit();
+			document.getElementById("COLLEGE").disabled = false;		
+			return true;
 		}
 	}
 	function setDisable(col){
@@ -55,11 +56,6 @@
 				}
 			}
 		}
-	}
-	function findCol(name){
-		var col = document.getElementById("COLLEGE");
-		var list = document.getElementById("COLLEGE").children;
-		
 	}
 	function colSelect(dept){
 		var col = document.getElementById("COLLEGE");
@@ -79,6 +75,7 @@
 			if(list[i].text == colname){
 				list[i].selected=true;
 				col.disabled = true;
+				col.value = list[i].value;
 			} else {
 				list[i].selected=false;
 			}
@@ -90,15 +87,15 @@
 </head>
 <body>
 <div align=center>
-	<form id=register method="POST" onsubmit="loginController/createAccount.do">
+	<form id=register method="POST" action="${pageContext.request.contextPath}/loginController/createAccount.do" onsubmit="javascript:check_form();">
 		<table cellspacing=0 cellpadding=0 class="inputTable">
 			<tr>
-				<td class="titleTD">아이디</td><td class="inputTD"><input id="USERID" type="text" value="${ loginInfo.getUserId() }"/></td>
-				<td class="titleTD">패스워드</td><td class="inputTD"><input id="USERPASSWORD" type="password" value="${ loginInfo.getUserPassword() }"/></td>
+				<td class="titleTD">아이디</td><td class="inputTD"><input name="USERID" id="USERID" type="text" value="${ loginInfo.getUserId() }"/></td>
+				<td class="titleTD">패스워드</td><td class="inputTD"><input name="USERPASSWORD" id="USERPASSWORD" type="password" value="${ loginInfo.getUserPassword() }"/></td>
 			</tr>
 			<tr>
-				<td class="titleTD">학번</td><td class="inputTD"><input id="UIDX" type="text"/></td>
-				<td class="titleTD">패스워드확인</td><td class="inputTD"><input id="PASSWORD" type="password"/></td>
+				<td class="titleTD">학번</td><td class="inputTD"><input name="UIDX" id="UIDX" type="text"/></td>
+				<td class="titleTD">패스워드확인</td><td class="inputTD"><input name="PASSWORD" id="PASSWORD" type="password"/></td>
 			</tr>
 			<tr>
 				<td class="titleTD">소속대학</td><td class="inputTD">
@@ -136,7 +133,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="titleTD">이름</td><td class="inputTD"><input id="USERNAME" type="text"/></td>
+				<td class="titleTD">이름</td><td class="inputTD"><input name="USERNAME" id="USERNAME" type="text"/></td>
 				<td class="titleTD">학적</td><td class="inputTD"><input type="radio" name="USERTYPE" id="USERTYPE" VALUE="1">학생 &nbsp; <input type="radio" name="USERTYPE" id="USERTYPE" value="2">교수</td>
 			</tr>
 		</table>
@@ -145,7 +142,7 @@
 				<td colspan="2"></td>
 			</tr>
 			<tr>
-				<td><button onclick="javascript:check_form()">확인</button></td>
+				<td><input type="submit" value="확인"/></td>
 				<td><button onclick="location.href='${pageContext.request.contextPath}/loginController/logout'">취소</button></td>
 			</tr>
 		</table>
