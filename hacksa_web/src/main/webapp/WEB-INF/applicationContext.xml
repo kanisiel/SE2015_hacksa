@@ -39,14 +39,12 @@
 		<beans:property name="password" value="selab" />
 	</beans:bean> 
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	    <beans:property name="mapperLocations" value="classpath*:kr/ac/mju/**/*.xml"/>
+	    <beans:property name="mapperLocations" value="classpath*:kr/ac/mju/mapper/*.xml"/>
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>        
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
-</beans:beans>
-<!-- 
 	<beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 	    <beans:property name="targetClass" value="org.springframework.util.Log4jConfigurer"/>
 	    <beans:property name="targetMethod" value="initLogging"/>
@@ -56,4 +54,4 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
- -->
+</beans:beans>

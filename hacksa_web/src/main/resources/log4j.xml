@@ -21,34 +21,48 @@
     <!-- jdbc.resultsettable :     INFO       WARN    -->
  
     <logger name="jdbc.connection" additivity="false">
-        <level value="WARN"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
  
     <logger name="jdbc.audit" additivity="false">
-        <level value="WARN"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
  
     <logger name="jdbc.sqlonly" additivity="false">
-        <level value="WARN"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
  
     <logger name="jdbc.sqltiming" additivity="false">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
  
     <logger name="jdbc.resultset" additivity="false">
-        <level value="WARN"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
      
     <logger name="jdbc.resultsettable" additivity="false">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
+    <logger name="org.apache.ibatis">
+       <level value="DEBUG"       />
+       <appender-ref ref="db_log" />
+	</logger>
+
+	<logger name="java.sql">
+       <level value="DEBUG"       />
+       <appender-ref ref="db_log" />
+	</logger>
+
+	<logger name="java.sql.Statement">
+       <level value="DEBUG"       />
+       <appender-ref ref="db_log" />
+	</logger>
  
     <!-- ===================================== -->
     <!-- Possible Log Levels:                  -->

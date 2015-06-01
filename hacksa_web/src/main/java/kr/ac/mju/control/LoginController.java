@@ -68,19 +68,19 @@ public class LoginController {
 		String dt = request.getParameter("DEPT");
 		String col = request.getParameter("COLLEGE");
 		int userType = Integer.parseInt(ut);
-		System.out.println(userType);
 		int dept = Integer.parseInt(dt);
-		System.out.println(dept);
-		System.out.println(col);
 		int college = Integer.parseInt(col);
-		UserInfo userInfo = new UserInfo();//uIdx, userID, userPassword, userName, userType, dept, college);
+		UserInfo userInfo = new UserInfo(uIdx, userID, userPassword, userName, userType, dept, college);
 		if(loginService.createAccount(userInfo)==false){
 			userInfo = new UserInfo();
 			userInfo.setErrorCode(Configuration.ErrorCodes.ER8000.getCodeName());
 			userInfo.setSubscribe_kor(Configuration.ErrorCodes.ER8000.getSubtitleKor());
 			modelAndView.addObject("userInfo", userInfo);
+			modelAndView.setViewName("redirect:/");
 			return modelAndView;
 		}else {
+			userInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+			userInfo.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
 			modelAndView.setViewName("redirect:/");
 			return modelAndView;
 		}
