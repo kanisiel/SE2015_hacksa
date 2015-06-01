@@ -50,7 +50,7 @@
 	    <beans:property name="targetMethod" value="initLogging"/>
 	    <beans:property name="arguments">
 	        <beans:list>
-	            <beans:value>/Users/newmacpro/git/SE2015_hacksa/hacksa_web/src/main/resources/log4j.xml</beans:value>
+	            <beans:value>WEB-INF/log4j.properties</beans:value>
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
