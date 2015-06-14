@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+         PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="kr.ac.mju.mapper.SugangMapper">
+    
+    <select id="getRegList" parameterType="int" resultType="kr.ac.mju.model.Sugang">
+    
+    SELECT * FROM REGISTERS WHERE UIDX = #{uidx}
+            
+    </select>
+    
+    <select id="getCList" parameterType="int" resultType="kr.ac.mju.model.Sugang">
+    
+    SELECT * FROM REGISTERS WHERE CID = #{cid}
+            
+    </select>
+    
+    <insert id="register" parameterType="kr.ac.mju.model.Sugang">
+        INSERT INTO REGISTERS (IDX, UIDX, CID) 
+        VALUES ( REGISTERS_SEQ.nextval, #{uidx}, #{cid} )
+    </insert>
+    
+    <update id="setGrade" parameterType="kr.ac.mju.model.Sugang">
+        UPDATE REGISTERS SET GRADE = #{grade} 
+        WHERE IDX = #{idx}
+    </update>
+    
+</mapper>

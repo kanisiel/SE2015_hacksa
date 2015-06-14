@@ -4,7 +4,7 @@ public class UserInfo implements Info {
 	
 	private String errorCode;
 	private String subscribe_kor;
-	private String uIdx;
+	private int uIdx;
 	private String userId;
 	private String userPassword;
 	private String userName;
@@ -14,7 +14,7 @@ public class UserInfo implements Info {
 	
 	public UserInfo() {	}
 	
-	public UserInfo(String uIdx, String userId, String userPassword,
+	public UserInfo(int uIdx, String userId, String userPassword,
 			String userName, int userType) {
 		super();
 		this.uIdx = uIdx;
@@ -23,7 +23,7 @@ public class UserInfo implements Info {
 		this.userName = userName;
 		this.userType = userType;
 	}
-	public UserInfo(String uIdx, String userId, String userPassword,
+	public UserInfo(int uIdx, String userId, String userPassword,
 			String userName, int userType, int dept, int college) {
 		super();
 		this.uIdx = uIdx;
@@ -53,10 +53,10 @@ public class UserInfo implements Info {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	public String getUIdx() {
+	public int getUIdx() {
 		return uIdx;
 	}
-	public void setUIdx(String uIdx) {
+	public void setUIdx(int uIdx) {
 		this.uIdx = uIdx;
 	}
 	public String getUserName() {

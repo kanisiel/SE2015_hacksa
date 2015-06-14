@@ -10,7 +10,7 @@
             
     </select>
     
-    <select id="getDept" parameterType="int" resultType="kr.ac.mju.model.Department">
+    <select id="getCollege" parameterType="int" resultType="kr.ac.mju.model.College">
     
     SELECT * FROM COLLEGE where IDX = #{idx}
             

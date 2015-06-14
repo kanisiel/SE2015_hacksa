@@ -6,16 +6,11 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.ac.mju.Conf.Configuration;
-import kr.ac.mju.Conf.Configuration.UserData;
 import kr.ac.mju.model.CollegeInfo;
 import kr.ac.mju.model.DepartmentInfo;
 import kr.ac.mju.model.LoginInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.LoginService;
-import kr.ac.mju.service.LoginService2;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,13 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @SessionAttributes("userInfo")
 public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	LoginService loginService;
-	
-	@Autowired
-	LoginService2 loginService2;
 	
 	@ModelAttribute("loginInfo")
 	LoginInfo loginInfo(){
@@ -48,7 +40,7 @@ public class LoginController {
 	public ModelAndView createAccount( HttpServletRequest request) throws UnsupportedEncodingException, ClassNotFoundException, SQLException {
 		this.modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
-		String uIdx = request.getParameter("UIDX");
+		int uIdx = Integer.parseInt(request.getParameter("UIDX"));
 		String userID = request.getParameter("USERID");
 		String userPassword = request.getParameter("USERPASSWORD");
 		String userName = request.getParameter("USERNAME");
@@ -100,12 +92,9 @@ public class LoginController {
 		
 		loginInfo.setUserId(userID);
 		loginInfo.setUserPassword(userPassword);
-		logger.info("ID :" + userID);
-		logger.info("Password :" + userPassword);
 		userInfo = this.loginService.login(loginInfo);
 		modelAndView.addObject("userInfo", userInfo);
 		
-		logger.info("에러코드 :" + userInfo.getErrorCode());
 		if(userInfo.getErrorCode().equals("Success")){
 			modelAndView.setViewName("logged");
 		} else {

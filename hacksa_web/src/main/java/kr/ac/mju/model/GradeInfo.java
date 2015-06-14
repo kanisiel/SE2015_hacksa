@@ -1,29 +1,18 @@
 package kr.ac.mju.model;
 
 import java.util.List;
-import java.util.Vector;
 
-public class CourseInfo implements Info {
-	
-	private List<Course> list;
+public class GradeInfo implements Info {
+
+	private List<Grade> list;
 	private String errorCode;
 	private String subscribe_kor;
 	
-	public CourseInfo() {
-		this.list = new Vector<Course>();
-		errorCode = null;
-	}
-	public List<Course> getList() {
+	public List<Grade> getList() {
 		return list;
 	}
-	public void setList(List<Course> list) {
+	public void setList(List<Grade> list) {
 		this.list = list;
-	}
-	public void addGangjwa(Course course){
-		this.list.add(course);
-	}
-	public Course getGangjwa(int index){
-		return this.list.get(index);
 	}
 	public String getErrorCode() {
 		return errorCode;

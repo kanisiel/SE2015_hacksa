@@ -68,46 +68,4 @@ public class SubjectDao implements Dao {
 			return subjectInfo;
 		}
 	}
-
-//	public SubjectInfo getList(){
-//		String[] gwamokData;
-//		ClassLoader classLoader = getClass().getClassLoader();
-//		File file = new File(classLoader.getResource(Files.Gwamok.getFileName()).getFile());
-//		
-//		try (Scanner scanner = new Scanner(file)){
-//			while (scanner.hasNextLine()) {
-//				Subject subject = new Subject();
-//				String line = scanner.nextLine();
-//				gwamokData = line.split("\t");
-//				subject.setSid(gwamokData[0]);
-//				subject.setName(gwamokData[1]);
-//				subject.setUnit(Integer.parseInt(gwamokData[2]));
-//				
-////				if(check_duplication(subject) == 1){
-//	//				this.subjectInfo.addGwamok(subject);
-//		//		}
-//			}
-//			this.subjectInfo.setErrorCode("Success");
-//		 	scanner.close();
-//			return this.subjectInfo;
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			this.subjectInfo.setErrorCode("ER2000");
-//			return this.subjectInfo;
-//		}
-//	}
-	
-//	public int check_duplication(Subject subject){
-//		Vector<Subject> list = this.subjectInfo.getList();
-//		if(list.isEmpty()){
-//			return 1;
-//		} else {
-//			for(Subject subjects : list){
-//				if(subjects.getGwamok_id().equals(subject.getGwamok_id())){				
-//					return -1;
-//				}
-//			}
-//		}
-//		return 1;
-//	}
 }

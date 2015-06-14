@@ -15,12 +15,14 @@
 <c:choose>
 	<c:when test="${userInfo.getUserType()==1 }">
 		<a href="${pageContext.request.contextPath}/sugangController/register">수강신청</a>
+		<a href="${pageContext.request.contextPath}/sugangController/grade">성적조회</a>
 	</c:when>
 	<c:when test="${userInfo.getUserType()==2 }">
-		<a href="${pageContext.request.contextPath}/sugangController/createCourse">강좌개설</a>
+		<a href="${pageContext.request.contextPath}/profController/subjectList">강좌개설</a>
+		<a href="${pageContext.request.contextPath}/profController/courseList">성적입력</a>
 	</c:when>
 	<c:when test="${userInfo.getUserType()==3 }">
-		<a href="${pageContext.request.contextPath}/sugangController/subjectList">과목리스트</a>
+		<a href="${pageContext.request.contextPath}/adminController/subjectList">과목리스트</a>
 	</c:when>
 </c:choose>
 <a href="${pageContext.request.contextPath}/loginController/logout">로그아웃</a>

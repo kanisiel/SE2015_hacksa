@@ -42,4 +42,27 @@ public class CollegeDao implements Dao {
 			return collegeInfo;
 		}
 	}
+	public College getCollege(int idx) throws SQLException{
+		College college;
+		CollegeMapper collegeMapper = sqlSession.getMapper(CollegeMapper.class);
+		
+		if(collegeMapper!=null){
+			college = collegeMapper.getCollege(idx);
+			if(college == null){
+				college = new College();
+				college.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				college.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return college;
+			} else {
+				college.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				college.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
+				return college;
+			}
+		} else {
+			college = new College();
+			college.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			college.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
+			return college;
+		}
+	}
 }

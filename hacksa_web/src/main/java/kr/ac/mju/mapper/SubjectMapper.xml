@@ -12,7 +12,7 @@
     
     <select id="getSubject" parameterType="int" resultType="kr.ac.mju.model.Subject">
     
-    SELECT * FROM SUBJECT where SID = #{sid}
+    SELECT * FROM SUBJECT where SID = #{sid} ORDER BY SID ASC
             
     </select>
     

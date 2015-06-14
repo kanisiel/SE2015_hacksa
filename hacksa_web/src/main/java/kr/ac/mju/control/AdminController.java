@@ -32,7 +32,11 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
-
+	@ModelAttribute("userInfo")  
+    public UserInfo userInfo() {  
+        return new UserInfo();  
+    }
+	
 	ModelAndView modelAndView;
 	
 	@RequestMapping(value = "/adminController/subjectList", method = RequestMethod.GET)
@@ -45,7 +49,7 @@ public class AdminController {
 		logger.info("에러코드 :" + subjectInfo.getErrorCode());
 		if(subjectInfo.getErrorCode().equals("Success")){
 			modelAndView.addObject("subjectInfo", subjectInfo);
-			modelAndView.setViewName("subject");
+			modelAndView.setViewName("admin/subject");
 			return modelAndView;
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(subjectInfo.getErrorCode());
@@ -54,6 +58,15 @@ public class AdminController {
 			return modelAndView;
 		}
 	}
+	@RequestMapping(value = "/adminController/createSubject", method = RequestMethod.POST)
+	public ModelAndView createForm(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
+		modelAndView = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+		modelAndView.addObject("userInfo", userInfo);
+		modelAndView.setViewName("admin/createSubject");
+		return modelAndView;
+		
+	}
 	@RequestMapping(value = "/adminController/createSubject.do", method = RequestMethod.POST)
 	public ModelAndView createSubjectQuery(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
 		modelAndView = new ModelAndView();
@@ -61,7 +74,6 @@ public class AdminController {
 		String sid = request.getParameter("SID");
 		String name = request.getParameter("NAME");
 		String unitbuffer = request.getParameter("UNIT");
-		System.out.println(unitbuffer);
 		int unit = Integer.parseInt(unitbuffer);
 		Subject subject = new Subject(sid, name, unit);
 		String errorCode = adminService.createSubject(subject);
@@ -72,7 +84,7 @@ public class AdminController {
 		error.put("errorCode", errorCode);
 		error.put("errorSub", Configuration.ErrorCodes.valueOf(errorCode).getSubtitleKor());
 		modelAndView.addObject("error", error);
-		modelAndView.setViewName("createSubject");
+		modelAndView.setViewName("admin/createSubject");
 		return modelAndView;
 		
 	}

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>강좌개설 - 과목 목록</title>
+<title>과목개설 - 과목 목록</title>
 <script type="text/javascript">
 	function submitForm(form) {
 		form.action = "modifySubject";
@@ -32,7 +32,7 @@
 <c:when test="${subjectInfo != null }">
 	<c:forEach items="${subjectInfo.getList() }" var="subject" varStatus="idx">
 		<tr>
-			<td><input name="SID" type="radio" value="${subject.getSid() }" /></td>
+			<td><input name="SID" type="radio" value="${subject.getSid() }"  style="text-align:center;"/></td>
 			<td><c:out value="${subject.getSid() }"></c:out></td>
 			<td><c:out value="${subject.getName() }"></c:out></td>
 			<td><c:out value="${subject.getUnit() }"></c:out></td>

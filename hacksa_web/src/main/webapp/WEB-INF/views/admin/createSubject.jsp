@@ -11,7 +11,7 @@
 	.titleTD { border-spacing:0px; padding:5px; background-color:LightSkyBlue; border-width:1px; border-style:solid; border-color:RoyalBlue }
 	.inputTD { border-spacing:0px; padding:5px; background-color:#FFFFFF; border-width:1px; border-style:solid; border-color:RoyalBlue }
 </style>
-<title>강좌 정보 입력</title>
+<title>과목개설 - 과목정보 입력</title>
 <script type="text/javascript">
 	function create(form){
 		form.action = "${pageContext.request.contextPath}/adminController/createSubject.do";

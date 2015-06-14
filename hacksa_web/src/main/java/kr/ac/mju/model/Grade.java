@@ -1,11 +1,10 @@
 package kr.ac.mju.model;
 
-public class Department implements CEntity {
+public class Grade implements CEntity {
 	private static final long serialVersionUID = 1L;
-	private String name;
 	private int idx;
-	private String captain;
-	private int college;
+	private int score;
+	private String letter;
 	private String errorCode;
 	private String subscribe_kor;
 	
@@ -15,23 +14,17 @@ public class Department implements CEntity {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getName() {
-		return name;
+	public int getScore() {
+		return score;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setScore(int score) {
+		this.score = score;
 	}
-	public String getCaptain() {
-		return captain;
+	public String getLetter() {
+		return letter;
 	}
-	public void setCaptain(String captain) {
-		this.captain = captain;
-	}
-	public int getCollege() {
-		return college;
-	}
-	public void setCollege(int college) {
-		this.college = college;
+	public void setLetter(String letter) {
+		this.letter = letter;
 	}
 	public String getErrorCode() {
 		return errorCode;

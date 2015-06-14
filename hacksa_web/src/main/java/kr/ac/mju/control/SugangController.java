@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import kr.ac.mju.Conf.Configuration;
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.model.CourseInfo;
-import kr.ac.mju.model.Subject;
-import kr.ac.mju.model.SubjectInfo;
+import kr.ac.mju.model.Sugang;
+import kr.ac.mju.model.SugangInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
 
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @SessionAttributes("userInfo")
@@ -42,29 +41,9 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 	
 	ModelAndView modelAndView;
 	
-	@RequestMapping(value = "/sugangController/createCourse", method = RequestMethod.GET)
-	public ModelAndView createSubject(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
-		modelAndView = new ModelAndView();
-		request.setCharacterEncoding("UTF-8");
-		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
-		modelAndView.setViewName("createSubject");
-		return modelAndView;
-	}
-
-	
-	
-	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.POST)
-	public ModelAndView createForm(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
-		modelAndView = new ModelAndView();
-		request.setCharacterEncoding("UTF-8");
-		modelAndView.addObject("userInfo", userInfo);
-		modelAndView.setViewName("createSubject");
-		return modelAndView;
-		
-	}
 	
 	@RequestMapping(value = "/sugangController/register", method = RequestMethod.GET)
-	public ModelAndView courseList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	public ModelAndView courseList(@ModelAttribute("userInfo") UserInfo userInfo,HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
 		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
 		CourseInfo courseInfo = sugangService.getAllCourse();
@@ -72,50 +51,57 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 
 		logger.info("에러코드 :" + courseInfo.getErrorCode());
 		if(courseInfo.getErrorCode().equals("Success")){
-			request.getSession().setAttribute("courseInfo", courseInfo);
-			modelAndView.setViewName("course");
-			redir.addFlashAttribute("Info", courseInfo);
+			modelAndView.addObject("courseInfo", courseInfo);
+			modelAndView.setViewName("student/course");
 			return modelAndView;
 		} else {
 			ErrorCodes errorCodes = ErrorCodes.valueOf(courseInfo.getErrorCode());
-			request.getSession().setAttribute("courseInfo", errorCodes);
+			modelAndView.addObject("courseInfo", errorCodes);
 			modelAndView.setViewName("logged");
 			return modelAndView;
 		}
 	}
-	/*@RequestMapping(value = "/sugangController/gaeseol", method = RequestMethod.POST)
-	public ModelAndView gaeseol(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
+	@RequestMapping(value = "/sugangController/grade", method = RequestMethod.GET)
+	public ModelAndView showGrade(@ModelAttribute("userInfo") UserInfo userInfo,HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
+		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
-		//logger.info("에러코드 :" + gwamokInfo.getErrorCode());
-		String gwamokID = request.getParameter("gwamokID");
-		Subject gwamok = null;
-		String gangjwa_id = null;
+		SugangInfo sugangInfo = sugangService.getRegList(userInfo);
+		request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
 		
-		if(gwamokID.isEmpty()){
-			redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));
-			modelAndView.setViewName("redirect:/sugangController/gwamokList");
+		logger.info("에러코드 :" + sugangInfo.getErrorCode());
+		if(sugangInfo.getErrorCode().equals("Success")){
+			modelAndView.addObject("sugangInfo", sugangInfo);
+			modelAndView.setViewName("student/reglist");
 			return modelAndView;
 		} else {
-			SubjectInfo gwamokInfo = (SubjectInfo) request.getSession().getAttribute("gwamokInfo");
-			for(Subject g : gwamokInfo.getList()){
-				if(g.getGwamok_id() == Integer.parseInt(gwamokID)){
-					 gwamok = g;
-				}
-			}
-			CourseInfo gangjwaInfo = sugangService.getGangjwas();
-			if(gangjwaInfo.getList().isEmpty()){
-				gangjwa_id = gwamok.getGwamok_id()+"01";
-			} else {
-				for(Course g : gangjwaInfo.getList()){
-					//if(g.getGangjwa_id().contains(gwamokID)){
-						
-				//	}
-				}
-			}
-			request.getSession().setAttribute("gangjwa_id", gangjwa_id);
-			request.getSession().setAttribute("gwamok", gwamok);
-			modelAndView.setViewName("gaeseol");
+			ErrorCodes errorCodes = ErrorCodes.valueOf(sugangInfo.getErrorCode());
+			modelAndView.addObject("sugangInfo", errorCodes);
+			modelAndView.setViewName("logged");
 			return modelAndView;
 		}
-	}*/
+	}
+	@RequestMapping(value = "/sugangController/register.do", method = RequestMethod.POST)
+	public ModelAndView createSubjectQuery(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
+		modelAndView = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+	  
+	    @SuppressWarnings("unchecked")
+		Map<String, String[]> map = request.getParameterMap(); 
+		
+		int cid = Integer.parseInt(map.get("CID")[0]);
+		int uidx = userInfo.getUIdx();
+		Sugang sugang = new Sugang(uidx, cid);
+		String errorCode = sugangService.register(sugang);
+		if(errorCode == "Success"){
+			return courseList(userInfo, request);
+		} else{
+			Map<String, String> error = new HashMap<String, String>();
+			error.put("errorCode", errorCode);
+			error.put("errorSub", Configuration.ErrorCodes.valueOf(errorCode).getSubtitleKor());
+			modelAndView.addObject("error", error);
+			modelAndView.setViewName("student/course");
+			return modelAndView;
+		}
+		
+	}
 }

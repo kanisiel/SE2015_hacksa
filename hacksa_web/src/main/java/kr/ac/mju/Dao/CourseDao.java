@@ -1,8 +1,12 @@
 package kr.ac.mju.Dao;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import kr.ac.mju.Conf.Configuration;
+import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.mapper.CourseMapper;
+import kr.ac.mju.model.Course;
 import kr.ac.mju.model.CourseInfo;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,30 +18,77 @@ public class CourseDao implements Dao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public CourseInfo getAllCourse(){
+	public CourseInfo getAllCourse() throws SQLException{
 		CourseInfo courseInfo;
 		CourseMapper courseMapper = sqlSession.getMapper(CourseMapper.class);
 		if(courseMapper!=null){
-			try {
-				courseInfo = courseMapper.listAll();
-				if(courseInfo == null){
-					courseInfo = new CourseInfo();
-					courseInfo.setErrorCode(Configuration.ErrorCodes.ER3000.getCodeName());
-					return courseInfo;
-				} else {
-					courseInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
-					return courseInfo;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			List<Course> courseList = courseMapper.listAll();
+			if(courseList == null){
 				courseInfo = new CourseInfo();
-				courseInfo.setErrorCode(Configuration.ErrorCodes.ER0001.getCodeName());
+				courseInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return courseInfo;
+			} else {
+				courseInfo = new CourseInfo();
+				courseInfo.setList(courseList);
+				courseInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
 				return courseInfo;
 			}
 		} else {
 			courseInfo = new CourseInfo();
 			courseInfo.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
+			return courseInfo;
+		}
+		
+	}
+	public CourseInfo getCourse(int cid) throws SQLException{
+		CourseInfo courseInfo;
+		CourseMapper courseMapper = sqlSession.getMapper(CourseMapper.class);
+		if(courseMapper!=null){
+			List<Course> courseList = courseMapper.getCourse(cid);
+			if(courseList == null){
+				courseInfo = new CourseInfo();
+				courseInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return courseInfo;
+			} else {
+				courseInfo = new CourseInfo();
+				courseInfo.setList(courseList);
+				courseInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
+				return courseInfo;
+			}
+		} else {
+			courseInfo = new CourseInfo();
+			courseInfo.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
+			return courseInfo;
+		}
+		
+	}
+	public CourseInfo listInstructor(int instructor) throws SQLException{
+		CourseInfo courseInfo;
+		CourseMapper courseMapper = sqlSession.getMapper(CourseMapper.class);
+		if(courseMapper!=null){
+			List<Course> courseList = courseMapper.listInstructor(instructor);
+			if(courseList == null){
+				courseInfo = new CourseInfo();
+				courseInfo.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return courseInfo;
+			} else {
+				courseInfo = new CourseInfo();
+				courseInfo.setList(courseList);
+				courseInfo.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				courseInfo.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
+				return courseInfo;
+			}
+		} else {
+			courseInfo = new CourseInfo();
+			courseInfo.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			courseInfo.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
 			return courseInfo;
 		}
 		
@@ -69,6 +120,19 @@ public class CourseDao implements Dao {
 			return courseInfo;
 		}
 		
+	}
+	public String createCourse(Course Course){
+		CourseMapper courseMapper = sqlSession.getMapper(CourseMapper.class);
+		if(courseMapper == null){
+			return ErrorCodes.ER1001.name();
+		} else {
+			try {
+				courseMapper.create(Course);
+			} catch (SQLException e) {
+				return ErrorCodes.ER2001.name();
+			}
+			return ErrorCodes.Success.name();
+		}
 	}
 	/*public CourseInfo getList(){
 		String[] gangjwaData;

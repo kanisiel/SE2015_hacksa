@@ -10,6 +10,12 @@
             
     </select>
     
+    <select id="getUser" parameterType="int" resultType="kr.ac.mju.model.UserInfo">
+    
+    SELECT * FROM USERS WHERE UIDX = #{uidx}
+            
+    </select>
+    
     <insert id="createAccount" parameterType="kr.ac.mju.model.UserInfo">
         INSERT INTO USERS (UIDX, USERID, USERPASSWORD, USERNAME, USERTYPE, DEPT, COLLEGE) 
         VALUES ( #{uIdx}, #{userId}, #{userPassword}, #{userName}, #{userType}, #{dept}, #{college} )

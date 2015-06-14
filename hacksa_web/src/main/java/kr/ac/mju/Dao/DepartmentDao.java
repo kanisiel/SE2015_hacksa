@@ -41,4 +41,26 @@ public class DepartmentDao implements Dao {
 			return departmentInfo;
 		}
 	}
+	public Department getDept(int idx) throws SQLException{
+		Department department;
+		DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
+		if(departmentMapper!=null){
+			department = departmentMapper.getDept(idx);
+			if(department == null){
+				department = new Department();
+				department.setErrorCode(Configuration.ErrorCodes.ER1001.getCodeName());
+				department.setSubscribe_kor(Configuration.ErrorCodes.ER1001.getSubtitleKor());
+				return department;
+			} else {
+				department.setErrorCode(Configuration.ErrorCodes.Success.getCodeName());
+				department.setSubscribe_kor(Configuration.ErrorCodes.Success.getSubtitleKor());
+				return department;
+			}
+		} else {
+			department = new Department();
+			department.setErrorCode(Configuration.ErrorCodes.ER0000.getCodeName());
+			department.setSubscribe_kor(Configuration.ErrorCodes.ER0000.getSubtitleKor());
+			return department;
+		}
+	}
 }

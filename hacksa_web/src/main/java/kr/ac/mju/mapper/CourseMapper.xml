@@ -4,20 +4,48 @@
          "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="kr.ac.mju.mapper.CourseMapper">
     
-    <select id="listAllCourse" resultType="kr.ac.mju.model.CourseInfo">
+    <select id="listAll" resultType="kr.ac.mju.model.Course">
     
     SELECT * FROM COURSE
             
     </select>
-    <select id="listCollegeCourse" parameterType="int" resultType="kr.ac.mju.model.CourseInfo">
+    <select id="getCourse" parameterType="int" resultType="kr.ac.mju.model.Course">
+    
+    SELECT * FROM COURSE where CID = #{cid}
+            
+    </select>
+    <select id="listInstructor" parameterType="int" resultType="kr.ac.mju.model.Course">
+    
+    SELECT * FROM COURSE where INSTRUCTOR = #{instructor}
+            
+    </select>
+    <select id="listCollegeCourse" parameterType="int" resultType="kr.ac.mju.model.Course">
     
     SELECT * FROM COURSE where COLLEGE = #{college}
             
     </select>
-    <select id="listDeptCourse" parameterType="int" resultType="kr.ac.mju.model.CourseInfo">
+    <select id="listDeptCourse" parameterType="int" resultType="kr.ac.mju.model.Course">
     
     SELECT * FROM COURSE where DEPT = #{DEPT}
             
     </select>
+    <update id="update" parameterType="kr.ac.mju.model.Course">
+        
+        UPDATE Course SET
+        NAME = #{name},
+        UNIT = #{unit},
+        INSTRUCTOR = #{instructor},
+        DEPT = #{dept},
+        COLLEGE = #{college}
+        WHERE CID = #{cid}
+        
+    </update>
+    
+    <insert id="create" parameterType="kr.ac.mju.model.Course">
+        
+        INSERT INTO COURSE (CID, SID, NAME, UNIT, INSTRUCTOR, YEAR, DEPT, COLLEGE, MAX, GRADE, INST_NAME)
+        VALUES (#{cid}, #{sid}, #{name}, #{unit}, #{instructor},#{year}, #{dept}, #{college}, #{max}, #{grade}, #{inst_name})
+        
+    </insert>
     
 </mapper>
