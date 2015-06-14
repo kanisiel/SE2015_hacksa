@@ -25,7 +25,7 @@
         
     </update>
     
-    <insert id="insert" parameterType="kr.ac.mju.model.Subject">
+    <insert id="create" parameterType="kr.ac.mju.model.Subject">
         
         INSERT INTO SUBJECT (SID, NAME, UNIT) VALUES (#{sid}, #{name}, #{unit})
         

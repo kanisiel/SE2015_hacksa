@@ -45,13 +45,5 @@
 	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
-	<beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-	    <beans:property name="targetClass" value="org.springframework.util.Log4jConfigurer"/>
-	    <beans:property name="targetMethod" value="initLogging"/>
-	    <beans:property name="arguments">
-	        <beans:list>
-	            <beans:value>WEB-INF/log4j.properties</beans:value>
-	        </beans:list>
-	    </beans:property>
-	</beans:bean>
+	
 </beans:beans>

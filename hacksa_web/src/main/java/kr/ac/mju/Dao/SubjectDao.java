@@ -29,14 +29,18 @@ public class SubjectDao implements Dao {
 		return ErrorCodes.Success.name();
 	}
 	
-	public String createSubject(Subject subject) throws SQLException{
+	public String createSubject(Subject subject){
 		SubjectMapper subjectMapper = sqlSession.getMapper(SubjectMapper.class);
 		if(subjectMapper == null){
 			return ErrorCodes.ER1001.name();
 		} else {
-			subjectMapper.create(subject);
+			try {
+				subjectMapper.create(subject);
+			} catch (SQLException e) {
+				return ErrorCodes.ER2001.name();
+			}
+			return ErrorCodes.Success.name();
 		}
-		return ErrorCodes.Success.name();
 	}
 	
 	public SubjectInfo getList() throws SQLException{

@@ -15,26 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SugangService {
 	
-	@Resource(name="subjectDao")
-	private SubjectDao subjectDao;
 	
 	@Resource(name="courseDao")
 	private CourseDao courseDao;
-	
-	public SubjectInfo getList() throws SQLException{
-		SubjectInfo subjectInfo = subjectDao.getList();
-		System.out.println(subjectInfo.getErrorCode());
-		return subjectInfo;
-	}
 	
 	public CourseInfo getAllCourse(){
 		return courseDao.getAllCourse();
 	}
 	public CourseInfo getCollegeCourse(int college){
 		return courseDao.getCollegeCourse(college);
-	}
-	public void createSubject(Subject subject){
-		
 	}
 	
 }

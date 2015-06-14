@@ -6,13 +6,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>강좌개설 - 과목 목록</title>
+<script type="text/javascript">
+	function submitForm(form) {
+		form.action = "modifySubject";
+		form.submit();
+	}
+	function resetForm(form){
+		form.reset();
+	}
+	function moveto(form){
+		form.action = "createSubject";
+		form.submit();
+	}
+
+</script>
 </head>
 <body>
 <div align="center">
 <h1>과목 리스트</h1>
 
 <h2>${userInfo.getUserName()}씨, 반갑습니다.</h2>
-<form action="sugangController/gaeseol" method=POST>
+<form action="sugangController/modifySubject" method=POST>
 <table>
 <c:choose>
 <c:when test="${subjectInfo != null }">
@@ -35,9 +49,9 @@
 </table>
 <table>
 	<tr>
-		<td><button onclick="location.href='${pageContext.request.contextPath}/createSubject'">개설</button>
-		<td><input type="submit" value="변경"/></td>
-		<td><input type="reset" value="리셋"/></td>
+		<td><button onclick="moveto(this.form);">개설</button></td>
+		<td><button onclick="submitForm(this.form);">변경</button></td>
+		<td><button onclick="resetForm(this.form);">리셋</button></td>
 	</tr>
 </table>
 </form>

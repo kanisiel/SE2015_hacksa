@@ -89,6 +89,7 @@ public class UserDao implements Dao {
 		if(userMapper!=null){
 			try{
 				userMapper.createAccount(userInfo);
+				sqlSession.commit();
 				return true;
 			}catch(Exception e){
 				return false;

@@ -2,11 +2,15 @@ package kr.ac.mju.control;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.ac.mju.Conf.Configuration;
 import kr.ac.mju.Conf.Configuration.ErrorCodes;
 import kr.ac.mju.model.CourseInfo;
+import kr.ac.mju.model.Subject;
 import kr.ac.mju.model.SubjectInfo;
 import kr.ac.mju.model.UserInfo;
 import kr.ac.mju.service.SugangService;
@@ -47,27 +51,9 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/sugangController/subjectList", method = RequestMethod.GET)
-	public ModelAndView subjectList(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException, SQLException {
-		modelAndView = new ModelAndView();
-		request.setCharacterEncoding("UTF-8");
-		SubjectInfo subjectInfo = sugangService.getList();
-		modelAndView.addObject("userInfo",request.getSession().getAttribute("userInfo"));
-
-		logger.info("에러코드 :" + subjectInfo.getErrorCode());
-		if(subjectInfo.getErrorCode().equals("Success")){
-			modelAndView.addObject("subjectInfo", subjectInfo);
-			modelAndView.setViewName("subject");
-			return modelAndView;
-		} else {
-			ErrorCodes errorCodes = ErrorCodes.valueOf(subjectInfo.getErrorCode());
-			request.getSession().setAttribute("subjectInfo", errorCodes);
-			modelAndView.setViewName("logged");
-			return modelAndView;
-		}
-	}
 	
-	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/sugangController/createSubject", method = RequestMethod.POST)
 	public ModelAndView createForm(@ModelAttribute("userInfo") UserInfo userInfo, HttpServletRequest request) throws UnsupportedEncodingException {
 		modelAndView = new ModelAndView();
 		request.setCharacterEncoding("UTF-8");
@@ -76,23 +62,7 @@ private static final Logger logger = LoggerFactory.getLogger(SugangController.cl
 		return modelAndView;
 		
 	}
-	@RequestMapping(value = "/sugangController/createSubject.do", method = RequestMethod.POST)
-	public ModelAndView createSubjectQuery(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
-		modelAndView = new ModelAndView();
-		request.setCharacterEncoding("UTF-8");
-//		String sid = request.getParameter("SID");
-//		String name = request.getParameter("NAME");
-//		int unit = Integer.parseInt(request.getParameter("UNIT"));
-		
-		//Subject subject = new Subject(sid, name, unit);
-		
-		//request.getSession().setAttribute("userInfo",request.getSession().getAttribute("userInfo"));
-
-		redir.addFlashAttribute("userInfo", request.getSession().getAttribute("userInfo"));
-		modelAndView.setViewName("createSubject");
-		return modelAndView;
-		
-	}
+	
 	@RequestMapping(value = "/sugangController/register", method = RequestMethod.GET)
 	public ModelAndView courseList(HttpServletRequest request, RedirectAttributes redir) throws UnsupportedEncodingException {
 		modelAndView = new ModelAndView();
