@@ -36,7 +36,7 @@
 		</tr>
 	</table>
 	<c:forEach items="${subjectInfo.getList() }" var="subject" varStatus="idx">
-	<form action="adminController/modifySubject" method=POST>
+	<form action="createCourse" method=POST>
 	<table border="1" cellpadding="0" cellspacing="0" style="margin-top:-1px">
 		<tr>
 			<td align=center width = "70px"><input name="SID" type="text" style="border-width:0px" size="3" value="${subject.getSid() }"></td>
